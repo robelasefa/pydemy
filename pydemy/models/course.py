@@ -3,7 +3,7 @@ Pydantic model representing a Udemy Course object with nested models for price d
 instructors, and locale.
 """
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
 
@@ -58,10 +58,10 @@ class Course(BaseModel):
     locale: Locale
     predictive_score: Optional[float] = None
     relevancy_score: Optional[float] = None
-    input_features: Optional[dict] = None
-    lecture_search_result: Optional[dict] = None
-    curriculum_lectures: Optional[List[dict]] = []
+    input_features: Optional[Dict[str, Any]] = None
+    lecture_search_result: Optional[Dict[str, Any]] = None
+    curriculum_lectures: Optional[List[Dict[str, Any]]] = []
     order_in_results: Optional[int] = None
-    curriculum_items: Optional[List[dict]] = []
+    curriculum_items: Optional[List[Dict[str, Any]]] = []
     headline: Optional[str] = None
     instructor_name: Optional[str] = None
