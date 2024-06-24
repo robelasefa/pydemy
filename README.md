@@ -1,8 +1,8 @@
 # Pydemy
 
 Pydemy provides a convenient way to interact with the Udemy Affiliate API from your Python applications.
-You can use Pydemy to search for courses, retrieve course details, and fetch reviews,
-among other functionalities offered by the API.
+You can use Pydemy to search for courses, retrieve course details, fetch reviews, and potentially explore
+other functionalities offered by the API.
 
 ## Main Features
 
