@@ -1,6 +1,6 @@
 """
-Pydantic model representing a Udemy Course object with nested models for instructors, 
-price details, and locale.
+Pydantic model representing a Udemy Course object with nested models for price details,
+instructors, and locale.
 """
 
 from typing import List, Optional
