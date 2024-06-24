@@ -4,10 +4,24 @@ __pycache__/
 *$py.class
 
 # Distribution / packaging
-dist/
-eggs/
+.Python
 build/
-.env
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
 # Logs
 *.log
@@ -18,7 +32,8 @@ coverage.xml
 .pytest_cache/
 tests/
 
-# Virtual environments
+# Environments
+.env
 venv*
 
 # ruff
@@ -26,6 +41,3 @@ venv*
 
 # VS Code
 .vscode
-
-# Downloads
-downloads/
