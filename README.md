@@ -1,11 +1,22 @@
 # Pydemy
 
-This Python library provides a simple interface to interact with the Udemy API. It allows you to retrieve course information, manage enrollments (if authorized), and potentially explore other functionalities offered by the API.
+Pydemy provides a convenient way to interact with the Udemy Affiliate API from your Python applications.
+You can use Pydemy to search for courses, retrieve course details, and fetch reviews,
+among other functionalities offered by the API.
+
+## Main Features
+
+- **Search for Courses**: Easily search for courses based on various criteria like keywords, categories, or
+  price filters.
+- **Get Detailed Course Information**: Retrieve comprehensive details about a specific course, including
+  title, instructor, ratings, curriculum, and more.
+- **Fetch Course Reviews**: Gain valuable insights into student experiences by fetching and analyzing reviews
+  for particular course.
 
 ## Getting Started
 
 1. **Obtain API Credentials**:
-   Visit [Udemy API Clients](https://www.udemy.com/user/edit-api-clients/) to create a new API client and obtain your `clientID` and `clientSecret`.
+   Visit **[Udemy API Clients](https://www.udemy.com/user/edit-api-clients/)** to create a new API client and obtain your `clientID` and `clientSecret`.
 
 2. **Installation**:
    Install the library using pip:
@@ -34,7 +45,7 @@ This Python library provides a simple interface to interact with the Udemy API. 
 
 ## Quickstart
 
-Here is example that demonstrates how to use the `UdemyClient` instance to retrieve information about public courses.
+Here is an example that demonstrates how to use the `UdemyClient` instance to retrieve information about public courses.
 
 ```python
 client = UdemyClient(client_id, client_secret)
@@ -49,7 +60,7 @@ for course in courses:
 
 ## Contributing
 
-We welcome contributions from the community! If you have bug fixes, improvements, or new features, feel free to submit a pull request. For detailed guidelines on contributing, please refer to the [CONTRIBUTING.rst](https://github.com/robelasefa/pydemy/blob/main/CONTRIBUTING.rst) file.
+We welcome contributions from the community! If you have bug fixes, improvements, or new features, feel free to submit a pull request. For detailed guidelines on contributing, please refer to the **[CONTRIBUTING.rst](https://github.com/robelasefa/pydemy/blob/main/CONTRIBUTING.rst)** file.
 
 Here's a brief overview:
 
