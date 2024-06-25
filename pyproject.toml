@@ -1,10 +1,20 @@
 [project]
 name = "pydemy"
-description = "Python client for Udemy Affiliate API v2.0. Search courses, get details & promos."
+version = "0.1"
+description = "A Python library for interacting with the Udemy Affiliate API."
 readme = "README.md"
-authors = ["robelasefa <mertigenet@gmail.com>"]
-license = "MIT"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+dependencies = [
+    "requests~=2.32.3",
+    "pydantic~=2.8.2",
+]
+authors = [
+    {name = "Robel Asefa", email = "mertigenet@gmail.com"}
+]
+maintainers = [
+    {name = "Robel Asefa", email = "mertigenet@gmail.com"}
+]
 
 [project.optional-dependencies]
 dev = ["black", "isort", "ruff", "pylint"]
