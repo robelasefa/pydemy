@@ -98,7 +98,7 @@ class UdemyClient:
 
         return parsed_data
 
-    def get_courses(self, filters: CourseFilter) -> List[Course]:
+    def get_courses(self, filters: CourseFilter = CourseFilter()) -> List[Course]:
         """
         Returns a list of Udemy courses based on provided search parameters.
 
@@ -148,7 +148,7 @@ class UdemyClient:
         Retrieves details of a specified course by its ID and returns a `Course` object.
 
         Args:
-            course_id (str): The ID of the course to retrieve details for.
+            course_id (int): The ID of the course to retrieve details for.
 
         Returns:
             A `Course` object representing the retrieved course details.
@@ -180,7 +180,7 @@ class UdemyClient:
         Retrieves a list of reviews for a course, with optional filters.
 
         Args:
-            course_id (str): The ID of the course to retrieve reviews for.
+            course_id (int): The ID of the course to retrieve reviews for.
             filters (ReviewFilter, optional): A namedtuple containing optional filters.
 
         Returns:
@@ -221,7 +221,7 @@ class UdemyClient:
             raise UdemyAPIError(f"Unexpected error: {exc}") from exc
 
     def get_course_public_curriculum(
-        self, course_id: int, page: str = 1, page_size: str = 10
+        self, course_id: int, page: int = 1, page_size: int = 10
     ) -> List[Union[Chapter, Quiz, Lecture]]:
         """
         Retrieves the public curriculum list of a specified course.
@@ -230,10 +230,10 @@ class UdemyClient:
         attribute.
 
         Args:
-            course_id (str): The ID of the course to retrieve the public curriculum list for.
-            page (str, optional): Pagination parameter for retrieving specific pages.
+            course_id (int): The ID of the course to retrieve the public curriculum list for.
+            page (int, optional): Pagination parameter for retrieving specific pages.
                 Defaults to None.
-            page_size (str, optional): Pagination parameter for specifying the number of items per
+            page_size (int, optional): Pagination parameter for specifying the number of items per
                 page. Defaults to None.
 
         Returns:
