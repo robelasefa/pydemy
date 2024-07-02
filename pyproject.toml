@@ -1,0 +1,23 @@
+[project]
+name = "pydemy"
+description = "Python client for Udemy Affiliate API v2.0. Search courses, get details & promos."
+readme = "README.md"
+authors = ["robelasefa <mertigenet@gmail.com>"]
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+
+[project.optional-dependencies]
+dev = ["black", "isort", "ruff", "pylint"]
+
+[tool.black]
+line-length = 99
+target-version = ['py310']
+
+[tool.isort]
+profile = "black"
+line-length = 99
+
+[tool.ruff]
+fix = false
+output-format = "grouped"
+line-length = 99
