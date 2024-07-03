@@ -16,6 +16,7 @@ build/
 .coverage
 coverage.xml
 .pytest_cache/
+tests/
 
 # Virtual environments
 venv/
