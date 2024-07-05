@@ -93,9 +93,3 @@ Continuous Integration
 
 This project might use a Continuous Integration (CI) service like Travis CI or GitHub Actions.
 When you create a pull request, your changes will be automatically tested on the CI server.
-
-Additional Resources
------------
-
-.. _`issue tracker`: https://github.com/robelasefa/pydemy/issues
-.. _`PEP 8 Style Guide`: https://www.python.org/dev/peps/pep-0008/
