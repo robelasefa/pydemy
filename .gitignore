@@ -19,7 +19,13 @@ coverage.xml
 tests/
 
 # Virtual environments
-venv/
+venv*
+
+# ruff
+.ruff_cache
 
 # VS Code
 .vscode
+
+# Downloads
+downloads/
