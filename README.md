@@ -18,7 +18,7 @@ This Python library provides a simple interface to interact with the Udemy API. 
    Import the `PyUdemy` class:
 
    ```python
-   from udemy import UdemyClient
+   from pydemy import UdemyClient
    ```
 
    Initialize the client with your API credentials:
