@@ -49,7 +49,9 @@ for course in courses:
 
 ## Contributing
 
-We welcome contributions from the community! If you have bug fixes, improvements, or new features, feel free to submit a pull request. Here are some guidelines for contributing:
+We welcome contributions from the community! If you have bug fixes, improvements, or new features, feel free to submit a pull request. For detailed guidelines on contributing, please refer to the [CONTRIBUTING.rst](https://github.com/robelasefa/pydemy/blob/main/CONTRIBUTING.rst) file.
+
+Here's a brief overview:
 
 - Fork the repository.
 - Create a new branch for your changes.
