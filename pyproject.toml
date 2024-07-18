@@ -1,23 +1,38 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "pydemy"
-version = "0.1"
+version = "0.1.0"
 description = "A Python library for interacting with the Udemy Affiliate API."
 readme = "README.md"
 requires-python = ">=3.10"
-license = {file = "LICENSE"}
-dependencies = [
-    "requests~=2.32.3",
-    "pydantic~=2.8.2",
-]
-authors = [
-    {name = "Robel Asefa", email = "mertigenet@gmail.com"}
-]
-maintainers = [
-    {name = "Robel Asefa", email = "mertigenet@gmail.com"}
+license = { file = "LICENSE" }
+keywords=["udemy", "api", "courses", "education"]
+dependencies = ["requests~=2.32.3", "pydantic~=2.8.2"]
+authors = [{ name = "Robel Asefa", email = "mertigenet@gmail.com" }]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
 ]
 
 [project.optional-dependencies]
 dev = ["black", "isort", "ruff", "pylint"]
+
+[project.urls]
+Homepage = "https://github.com/robelasefa/pydemy"
+Issues = "https://github.com/robelasefa/pydemy/issues"
 
 [tool.black]
 line-length = 99
