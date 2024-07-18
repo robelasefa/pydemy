@@ -53,7 +53,7 @@ Here is an example that demonstrates how to use the `UdemyClient` instance to re
 client = UdemyClient(client_id="YOUR_CLIENT_ID", client_secret="YOUR_CLIENT_SECRET")
 
 # Get a list of public courses (replace '4534650' with a specific course ID for details)
-courses = client.get_public_curriculum_list(course_id=4534650, page=1)
+courses = client.get_public_curriculum_list(course_id=4534650)
 
 # Print course titles
 for course in courses:
