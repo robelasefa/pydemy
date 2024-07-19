@@ -44,6 +44,26 @@ class UdemyClient:
         self.__auth = HTTPBasicAuth(self.__client_id, self.__client_secret)
         self.__timeout = timeout
 
+    @property
+    def client_id(self) -> str:
+        """Returns the client ID used for authentication."""
+        return self.__client_id
+
+    @property
+    def client_secret(self) -> str:
+        """Returns the client secret used for authentication."""
+        return self.__client_secret
+
+    @property
+    def auth(self) -> HTTPBasicAuth:
+        """Returns the `HTTPBasicAuth` object used for authentication."""
+        return self.__auth
+
+    @property
+    def timeout(self) -> int:
+        """Returns the timeout value (in seconds) for API requests."""
+        return self.__timeout
+
     @staticmethod
     def _parse_entry(entry_dict: Dict[str, Any]) -> Dict[str, Any]:
         """
