@@ -24,7 +24,7 @@ class UdemyClient:
 
     def __init__(self, client_id: str, client_secret: str, timeout: int = 5) -> None:
         """
-        Initializes a PyUdemy object.
+        Initializes a UdemyClient object.
 
         Args:
             client_id (str): Your Udemy client ID.
