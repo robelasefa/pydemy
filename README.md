@@ -16,6 +16,7 @@ Pydemy currently supports the **Udemy Affiliate API v2.0**. This API allows deve
   title, instructor, ratings, curriculum, and more.
 - **Fetch Course Reviews**: Gain valuable insights into student experiences by fetching and analyzing reviews
   for particular course.
+- **Leverage Pydantic for Data Validation and Management**: Pydantic is a powerful library used throughout the `pydemy` library. It ensures data retrieved from the Udemy API is valid and provides a structured way to work with that data. This simplifies development and promotes robust interactions with the Udemy API.
 
 ## Getting Started
 
