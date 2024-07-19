@@ -92,27 +92,28 @@ jobs:
           '${{ github.ref_name }}' dist/**
           --repo '${{ github.repository }}'
 
-  publish-to-test-pypi:
-    name: Publish to TestPyPI
-    needs:
-      - build
-    runs-on: ubuntu-latest
+  # Currently commented out due to naming conflicts with the project name
+  # publish-to-test-pypi:
+  #   name: Publish to TestPyPI
+  #   needs:
+  #     - build
+  #   runs-on: ubuntu-latest
 
-    environment:
-      name: release_test_pypi
-      # Using project name 'pydemy-testing' on TestPyPI due to name collision with 'pydemy'
-      url: https://test.pypi.org/p/pydemy-testing
+  #   environment:
+  #     name: release_test_pypi
+  #     # Using project name 'pydemy-testing' on TestPyPI due to name collision with 'pydemy'
+  #     url: https://test.pypi.org/p/pydemy-testing
 
-    permissions:
-      id-token: write # IMPORTANT: mandatory for trusted publishing
+  #   permissions:
+  #     id-token: write # IMPORTANT: mandatory for trusted publishing
 
-    steps:
-      - name: Download all the dists
-        uses: actions/download-artifact@v3
-        with:
-          name: python-package-distributions
-          path: dist/
-      - name: Publish to TestPyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
+  #   steps:
+  #     - name: Download all the dists
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: python-package-distributions
+  #         path: dist/
+  #     - name: Publish to TestPyPI
+  #       uses: pypa/gh-action-pypi-publish@release/v1
+  #       with:
+  #         repository-url: https://test.pypi.org/legacy/
