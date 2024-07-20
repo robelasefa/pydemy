@@ -9,14 +9,14 @@ from ..course_category import CourseCategory
 from ..course_subcategory import CourseSubcategory
 
 
-class _Price(Enum):
+class Price(Enum):
     """Enumeration representing the possible price options for courses."""
 
     PRICE_PAID = "price-paid"
     PRICE_FREE = "price-free"
 
 
-class _InstructionalLevel(Enum):
+class InstructionalLevel(Enum):
     """Enumeration representing the available instructional levels for courses."""
 
     ALL = "all"
@@ -25,7 +25,7 @@ class _InstructionalLevel(Enum):
     EXPERT = "expert"
 
 
-class _Ordering(Enum):
+class Ordering(Enum):
     """Enumeration representing the sorting options for course search results."""
 
     RELEVANCE = "relevance"
@@ -36,7 +36,7 @@ class _Ordering(Enum):
     PRICE_HIGH_TO_LOW = "price-high-to-low"
 
 
-class _Duration(Enum):
+class Duration(Enum):
     """Enumeration representing the estimated duration categories for courses."""
 
     SHORT = "short"
@@ -53,7 +53,7 @@ class CourseFilter(BaseModel):
     search: str = ""
     category: Optional[CourseCategory] = None
     subcategory: Optional[CourseSubcategory] = None
-    price: _Price = None
+    price: Price = None
     is_affiliate_agreed: bool = False
     is_fixed_priced_deals_agreed: bool = False
     is_percentage_deals_agreed: bool = False
@@ -63,10 +63,10 @@ class CourseFilter(BaseModel):
     has_closed_caption: bool = False
     has_coding_exercises: bool = False
     has_simple_quiz: bool = False
-    instructional_level: _InstructionalLevel = None
-    ordering: _Ordering = None
+    instructional_level: InstructionalLevel = None
+    ordering: Ordering = None
     ratings: str = None
-    duration: _Duration = None
+    duration: Duration = None
 
     @model_validator(mode="after")
     def validate_page_and_size(self) -> Self:
