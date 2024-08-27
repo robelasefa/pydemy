@@ -26,13 +26,13 @@ __all__ = [
     "Duration",
 ]
 
-from .chapter import Chapter
-from .course import Course, Instructor, Locale, PriceDetail
-from .course_category import CourseCategory
-from .course_review import CourseReview
-from .course_subcategory import CourseSubcategory
-from .filters.course_filters import CourseFilter, Duration, InstructionalLevel, Ordering, Price
-from .filters.review_filters import ReviewFilter
-from .lecture import Asset, Lecture
-from .quiz import Quiz
-from .user import User
+from ._chapter import Chapter
+from ._course import Course, Instructor, Locale, PriceDetail
+from ._course_category import CourseCategory
+from ._course_review import CourseReview
+from ._course_subcategory import CourseSubcategory
+from ._filters.course_filters import CourseFilter, Duration, InstructionalLevel, Ordering, Price
+from ._filters.review_filters import ReviewFilter
+from ._lecture import Asset, Lecture
+from ._quiz import Quiz
+from ._user import User

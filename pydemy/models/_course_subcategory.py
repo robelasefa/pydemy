@@ -7,7 +7,7 @@ from typing import List
 
 from pydantic import BaseModel, Field
 
-from .course_category import CourseCategory
+from ._course_category import CourseCategory
 
 
 class CourseSubcategory(BaseModel):

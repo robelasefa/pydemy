@@ -1,8 +1,9 @@
 """Python library for interacting with the Udemy Affiliate API."""
 
 __author__ = "mertigenet@gmail.com"
-__all__ = ["models", "exceptions", "UdemyClient"]
+__all__ = ["_exceptions", "models", "AsyncUdemyClient", "UdemyClient"]
 
 
-from . import exceptions, models
-from .client import UdemyClient
+from . import _exceptions, models
+from ._async_client import AsyncUdemyClient
+from ._client import UdemyClient

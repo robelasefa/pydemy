@@ -5,8 +5,8 @@ from typing import Optional, Self
 
 from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
 
-from ..course_category import CourseCategory
-from ..course_subcategory import CourseSubcategory
+from .._course_category import CourseCategory
+from .._course_subcategory import CourseSubcategory
 
 
 class Price(Enum):

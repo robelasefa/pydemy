@@ -3,7 +3,7 @@
 from datetime import datetime
 from typing import Optional
 
-from .mixins.serializers import DateTimeSerializer
+from ._mixins.serializers import DateTimeSerializer
 
 
 class Asset(DateTimeSerializer):

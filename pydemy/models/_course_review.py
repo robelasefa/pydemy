@@ -2,8 +2,8 @@
 
 from datetime import datetime
 
-from .mixins.serializers import DateTimeSerializer
-from .user import User
+from ._mixins.serializers import DateTimeSerializer
+from ._user import User
 
 
 class CourseReview(DateTimeSerializer):

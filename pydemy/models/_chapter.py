@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from .mixins.serializers import DateTimeSerializer
+from ._mixins.serializers import DateTimeSerializer
 
 
 class Chapter(DateTimeSerializer):

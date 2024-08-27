@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
 
-from .user import User
+from ._user import User
 
 
 class PriceDetail(BaseModel):
