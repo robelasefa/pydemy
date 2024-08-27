@@ -28,7 +28,7 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-dev = ["black", "isort", "ruff", "pylint"]
+dev = ["black", "isort", "ruff"]
 
 [project.urls]
 Homepage = "https://github.com/robelasefa/pydemy"
@@ -36,7 +36,6 @@ Issues = "https://github.com/robelasefa/pydemy/issues"
 
 [tool.black]
 line-length = 99
-target-version = ['py310']
 
 [tool.isort]
 profile = "black"
