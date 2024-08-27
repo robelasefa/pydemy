@@ -46,7 +46,9 @@ Pydemy currently supports the **Udemy Affiliate API v2.0**. This API allows deve
 
 ## Quickstart
 
-Here is an example that demonstrates how to use the `UdemyClient` instance to retrieve information about public courses.
+Here is an example that demonstrates how to get started with using the `UdemyClient` to retrieve information about public courses.
+
+**For more in-depth examples and usage scenarios, be sure to check out the `examples` folder.**
 
 ```python
 client = UdemyClient(client_id="YOUR_CLIENT_ID", client_secret="YOUR_CLIENT_SECRET")
