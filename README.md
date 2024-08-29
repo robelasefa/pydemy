@@ -1,4 +1,4 @@
-# Pydemy
+![Pydemy Logo](./assets/logo.png)
 
 Pydemy provides a convenient way to interact with the **[Udemy Affiliate API](https://www.udemy.com/developers/affiliate)** from your Python applications. You can use Pydemy to search for courses, retrieve course details, fetch reviews, and potentially explore other functionalities offered by the API.
 
