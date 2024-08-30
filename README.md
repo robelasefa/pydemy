@@ -1,26 +1,14 @@
 <h1 align="center">
-  <img src="./assets/logo.png" alt="Pydemy Logo" width="380">
+  <img src="https://raw.githubusercontent.com/robelasefa/pydemy/main/assets/logo.png" alt="Pydemy Logo" width="380">
   <br>
 </h1>
 
 
-<p>
-  <a href="https://pypi.org/project/pydemy/">
-    <img src="https://img.shields.io/pypi/v/pydemy" alt="PyPI version">
-  </a>
-  <a href="https://pypi.org/project/pydemy/">
-    <img src="https://img.shields.io/pypi/pyversions/pydemy" alt="Python versions">
-  </a>
-  <a href="https://www.udemy.com/developers/affiliate">
-    <img src="https://img.shields.io/badge/Udemy%20API-v2.0-blue" alt="Udemy API version">
-  </a>
-  <a href="https://github.com/robelasefa/pydemy/issues">
-    <img src="https://img.shields.io/github/issues/robelasefa/pydemy" alt="GitHub issues">
-  </a>
-  <a href="https://github.com/robelasefa/pydemy/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/robelasefa/pydemy" alt="GitHub License">
-  </a>
-</p>
+[![PyPI version](https://img.shields.io/pypi/v/pydemy)](https://pypi.org/project/pydemy/)
+[![Python versions](https://img.shields.io/pypi/pyversions/pydemy)](https://pypi.org/project/pydemy/)
+[![Udemy API version](https://img.shields.io/badge/Udemy%20API-v2.0-blue)](https://www.udemy.com/developers/affiliate)
+[![GitHub issues](https://img.shields.io/github/issues/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/issues)
+[![License](https://img.shields.io/github/license/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/blob/main/LICENSE)
 
 
 Pydemy provides a convenient way to interact with the **[Udemy Affiliate API](https://www.udemy.com/developers/affiliate)** from your Python applications. You can use Pydemy to search for courses, retrieve course details, fetch reviews, and potentially explore other functionalities offered by the API.
