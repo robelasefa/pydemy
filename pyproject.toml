@@ -9,7 +9,22 @@ description = "A Python library for interacting with the Udemy Affiliate API."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
-keywords=["udemy", "api", "courses", "education"]
+keywords = [
+    "Udemy",
+    "API",
+    "Courses",
+    "Education",
+    "Udemy Affiliate API",
+    "Course Finder",
+    "Online Learning",
+    "Udemy Integration",
+    "Education API",
+    "Course Reviews",
+    "Learning Platform",
+    "Affiliate Marketing",
+    "EdTech",
+    "Pydantic",
+]
 dependencies = ["requests~=2.32.3", "pydantic~=2.8.2"]
 authors = [{ name = "Robel Asefa", email = "mertigenet@gmail.com" }]
 classifiers = [
