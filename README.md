@@ -1,6 +1,11 @@
 <h1 align="center">
 <img src="./assets/logo.png" alt="Pydemy Logo" width="380">
-</h1><br>
+<br></h1>
+
+![PyPI](https://img.shields.io/pypi/v/pydemy)
+![Python Versions](https://img.shields.io/pypi/pyversions/pydemy)
+![Udemy API](https://img.shields.io/badge/Udemy%20API-v2.0-blue)
+
 
 Pydemy provides a convenient way to interact with the **[Udemy Affiliate API](https://www.udemy.com/developers/affiliate)** from your Python applications. You can use Pydemy to search for courses, retrieve course details, fetch reviews, and potentially explore other functionalities offered by the API.
 
