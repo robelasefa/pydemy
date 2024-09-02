@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/robelasefa/pydemy/main/assets/logo.png" alt="Pydemy Logo" width="380">
+  <img src="https://raw.githubusercontent.com/robelasefa/pydemy/main/assets/logo.jpg" alt="Pydemy Logo" width="380">
   <br>
 </h1>
 
