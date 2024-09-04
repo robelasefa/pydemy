@@ -47,7 +47,7 @@ dev = ["black", "isort", "ruff"]
 
 [project.urls]
 Homepage = "https://github.com/robelasefa/pydemy"
-Issues = "https://github.com/robelasefa/pydemy/issues"
+Bug Tracker = "https://github.com/robelasefa/pydemy/issues"
 
 [tool.black]
 line-length = 99
