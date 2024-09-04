@@ -7,6 +7,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/pydemy)](https://pypi.org/project/pydemy/)
 [![Python versions](https://img.shields.io/pypi/pyversions/pydemy)](https://pypi.org/project/pydemy/)
 [![Udemy API version](https://img.shields.io/badge/Udemy%20API-v2.0-blue)](https://www.udemy.com/developers/affiliate)
+[![PyPI Monthly Downloads](https://img.shields.io/pypi/dm/pydemy)](https://pypistats.org/packages/pydemy)
 [![GitHub issues](https://img.shields.io/github/issues/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/issues)
 [![License](https://img.shields.io/github/license/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/blob/main/LICENSE)
 
