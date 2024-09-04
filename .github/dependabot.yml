@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # Update GitHub Actions dependencies
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+
+  # Update Python dependencies
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      python-packages:
+        patterns:
+          - "*"
