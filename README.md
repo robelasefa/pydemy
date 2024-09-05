@@ -12,7 +12,6 @@
 [![GitHub issues](https://img.shields.io/github/issues/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/issues)
 [![License](https://img.shields.io/github/license/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/blob/main/LICENSE)
 
-
 Pydemy provides a convenient way to interact with the **[Udemy Affiliate API](https://www.udemy.com/developers/affiliate)** from your Python applications. You can use Pydemy to search for courses, retrieve course details, fetch reviews, and potentially explore other functionalities offered by the API.
 
 ## Udemy API Support
