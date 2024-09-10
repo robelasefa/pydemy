@@ -9,7 +9,7 @@ repos:
 
   # Sorting
   - repo: https://github.com/pycqa/isort
-    rev: 5.11.2
+    rev: 5.13.2
     hooks:
       - id: isort
         args:
@@ -17,7 +17,7 @@ repos:
 
   # Linting
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.6.2
+    rev: v0.6.4
     hooks:
       - id: ruff
         args:

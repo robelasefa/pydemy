@@ -25,7 +25,7 @@ free_courses = client.get_courses(filters=filters)
 print(f"\nFound {len(free_courses)} free courses in the '{category}' category:")
 for course in free_courses:
     print(f"\n\t- Course ID: {course.id}, Title: {course.title}")
-    
+
 # Example 3: Get details of a specific course with error handling
 course_id = 12345  # Replace with the actual course ID
 try:
