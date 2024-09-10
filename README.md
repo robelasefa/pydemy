@@ -22,7 +22,7 @@ Pydemy currently supports the **Udemy Affiliate API v2.0**. This API allows deve
 
 ## Main Features
 
-- **Synchronous and Asynchronous API Requests**: Choose between synchronous and asynchronous interactions with the Udemy API. This flexibility caters to different development needs and preferences.To enhance application performance, for example, employ asynchronous calls for non-blocking activities.
+- **Synchronous and Asynchronous API Requests**: Choose between synchronous and asynchronous interactions with the Udemy API. This flexibility caters to different development needs and preferences. To enhance application performance, for example, employ asynchronous calls for non-blocking activities.
 - **Search for Courses**: Quickly find courses using a variety of parameters, such as price filters, categories, or keywords.
 - **Get Detailed Course Information**: Get in-depth information on a particular course, such as the title, curriculum, teacher, ratings, and more.
 - **Get Course Reviews**: By retrieving and examining reviews for a specific course, you can learn a great deal about the experiences of students.
