@@ -3,7 +3,6 @@
   <br>
 </h1>
 
-
 [![PyPI version](https://img.shields.io/pypi/v/pydemy)](https://pypi.org/project/pydemy/)
 [![Python versions](https://img.shields.io/pypi/pyversions/pydemy)](https://pypi.org/project/pydemy/)
 [![Udemy API version](https://img.shields.io/badge/Udemy%20API-v2.0-blue)](https://www.udemy.com/developers/affiliate)
@@ -11,6 +10,7 @@
 [![Publish to PyPI](https://github.com/robelasefa/pydemy/actions/workflows/python-publish.yml/badge.svg)](https://github.com/robelasefa/pydemy/actions/workflows/python-publish.yml)
 [![GitHub issues](https://img.shields.io/github/issues/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/issues)
 [![License](https://img.shields.io/github/license/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/blob/main/LICENSE)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/robelasefa/pydemy/main.svg)](https://results.pre-commit.ci/latest/github/robelasefa/pydemy/main)
 
 Pydemy provides a convenient way to interact with the **[Udemy Affiliate API](https://www.udemy.com/developers/affiliate)** from your Python applications. You can use Pydemy to search for courses, retrieve course details, fetch reviews, and potentially explore other functionalities offered by the API.
 
@@ -23,7 +23,7 @@ Pydemy currently supports the **Udemy Affiliate API v2.0**. This API allows deve
 ## Main Features
 
 - **Synchronous and Asynchronous API Requests**: Choose between synchronous and asynchronous interactions with the Udemy API. This flexibility caters to different development needs and preferences.To enhance application performance, for example, employ asynchronous calls for non-blocking activities.
-- **Search for Courses**:  Quickly find courses using a variety of parameters, such as price filters, categories, or keywords.
+- **Search for Courses**: Quickly find courses using a variety of parameters, such as price filters, categories, or keywords.
 - **Get Detailed Course Information**: Get in-depth information on a particular course, such as the title, curriculum, teacher, ratings, and more.
 - **Get Course Reviews**: By retrieving and examining reviews for a specific course, you can learn a great deal about the experiences of students.
 - **Use Pydantic for Data Management and Validation**: The `pydemy` library makes extensive use of the potent Pydantic library.It offers an organized method of working with the data and guarantees that the information obtained from the Udemy API is accurate. This facilitates robust interactions with the Udemy API and makes programming easier.
