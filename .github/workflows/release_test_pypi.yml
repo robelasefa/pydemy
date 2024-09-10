@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: release_test_pypi
-      url: https://test.pypi.org/project/pydemy/
+      url: https://test.pypi.org/project/pydemy-test/
     permissions:
       id-token: write # Mandatory for trusted publishing
 
