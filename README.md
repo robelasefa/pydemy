@@ -7,7 +7,7 @@
 [![Python versions](https://img.shields.io/pypi/pyversions/pydemy)](https://pypi.org/project/pydemy/)
 [![Udemy API version](https://img.shields.io/badge/Udemy%20API-v2.0-blue)](https://www.udemy.com/developers/affiliate)
 [![PyPI Monthly Downloads](https://img.shields.io/pypi/dm/pydemy)](https://pypistats.org/packages/pydemy)
-[![Publish to PyPI](https://github.com/robelasefa/pydemy/actions/workflows/python-publish.yml/badge.svg)](https://github.com/robelasefa/pydemy/actions/workflows/python-publish.yml)
+[![Publish to PyPI](https://github.com/robelasefa/pydemy/actions/workflows/release_pypi.yml/badge.svg)](https://github.com/robelasefa/pydemy/actions/workflows/release_pypi.yml)
 [![GitHub issues](https://img.shields.io/github/issues/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/issues)
 [![License](https://img.shields.io/github/license/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/blob/main/LICENSE)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/robelasefa/pydemy/main.svg)](https://results.pre-commit.ci/latest/github/robelasefa/pydemy/main)
