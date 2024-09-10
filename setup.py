@@ -19,5 +19,5 @@ setup(
     author_email="mertigenet@gmail.com",
     url="https://github.com/robelasefa/pydemy",
     packages=find_packages(exclude=["tests*"]),
-    install_requires=["requests~=2.32.3", "pydantic~=2.8.2"],
+    install_requires=["requests~=2.32.3", "pydantic~=2.9.1"],
 )
