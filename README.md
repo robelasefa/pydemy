@@ -26,7 +26,7 @@ Pydemy currently supports the **Udemy Affiliate API v2.0**. This API allows deve
 - **Search for Courses**: Quickly find courses using a variety of parameters, such as price filters, categories, or keywords.
 - **Get Detailed Course Information**: Get in-depth information on a particular course, such as the title, curriculum, teacher, ratings, and more.
 - **Get Course Reviews**: By retrieving and examining reviews for a specific course, you can learn a great deal about the experiences of students.
-- **Use Pydantic for Data Management and Validation**: The `pydemy` library makes extensive use of the potent Pydantic library.It offers an organized method of working with the data and guarantees that the information obtained from the Udemy API is accurate. This facilitates robust interactions with the Udemy API and makes programming easier.
+- **Use Pydantic for Data Management and Validation**: The `pydemy` library makes extensive use of the potent Pydantic library. It offers an organized method of working with the data and guarantees that the information obtained from the Udemy API is accurate. This facilitates robust interactions with the Udemy API and makes programming easier.
 
 ## Getting Started
 
