@@ -11,7 +11,7 @@ def get_long_description() -> str:
 
 setup(
     name="pydemy",
-    version="0.2.7",
+    version="0.2.8",
     description="A Python library for interacting with the Udemy Affiliate API.",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
