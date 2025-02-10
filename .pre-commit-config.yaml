@@ -1,7 +1,7 @@
 repos:
   # Formatting
   - repo: https://github.com/psf/black-pre-commit-mirror
-    rev: 24.10.0
+    rev: 25.1.0
     hooks:
       - id: black
         args:
@@ -9,7 +9,7 @@ repos:
 
   # Sorting
   - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
+    rev: 6.0.0
     hooks:
       - id: isort
         args:
@@ -17,7 +17,7 @@ repos:
 
   # Linting
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.9.3
+    rev: v0.9.6
     hooks:
       - id: ruff
         args:
