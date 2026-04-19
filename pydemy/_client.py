@@ -18,15 +18,15 @@ from .models._quiz import Quiz
 class UdemyClient(BaseClient):
     """Synchronous client for interacting with the Udemy API."""
 
-    async def __enter__(self) -> Self:
+    def __enter__(self) -> Self:
         """Initializes the client for use within a with block."""
-        # Perform any necessary setup tasks here
+        self._http_client = httpx.Client()
         return self
 
-    async def __exit__(self, exc_type, exc_val, exc_tb):
+    def __exit__(self, exc_type, exc_val, exc_tb):
         """Cleans up resources when exiting the with block."""
-        # Perform any necessary cleanup tasks here
-        pass
+        if hasattr(self, "_http_client"):
+            self._http_client.close()
 
     def get_courses(self, filters: CourseFilter = CourseFilter()) -> List[Course]:
         """
@@ -43,14 +43,14 @@ class UdemyClient(BaseClient):
                 code indicates an error.
         """
 
-        url = self.__base_url + "courses/"
+        url = self._base_url + "courses/"
         query_params = {
             key: str(value) for key, value in filters.model_dump(exclude_unset=True).items()
         }
 
         try:
             response = httpx.get(
-                url=url, params=query_params, auth=self.__auth, timeout=self.__timeout
+                url=url, params=query_params, auth=self._auth, timeout=self._timeout
             )
             response.raise_for_status()  # Raise exception for non-2xx status codes
             data = response.json()
@@ -68,10 +68,12 @@ class UdemyClient(BaseClient):
 
             return courses
 
-        except httpx.HTTPError as exc:
-            raise UdemyAPIError(f"Error communicating with the API: {exc}") from exc
-        except Exception as exc:
-            raise UdemyAPIError(f"Unexpected error: {exc}") from exc
+        except httpx.HTTPStatusError as exc:
+            raise UdemyAPIError(f"HTTP error {exc.response.status_code}: {exc}") from exc
+        except httpx.RequestError as exc:
+            raise UdemyAPIError(f"Request error: {exc}") from exc
+        except ValueError as exc:
+            raise UdemyAPIError(f"JSON parsing error: {exc}") from exc
 
     def get_course_details(self, course_id: int) -> Course:
         """
@@ -87,10 +89,10 @@ class UdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self.__base_url + f"courses/{course_id}/"
+        url = self._base_url + f"courses/{course_id}/"
 
         try:
-            response = httpx.get(url=url, auth=self.__auth, timeout=self.__timeout)
+            response = httpx.get(url=url, auth=self._auth, timeout=self._timeout)
             response.raise_for_status()  # Raise exception for non-2xx status codes
             course_data = response.json()
 
@@ -99,10 +101,12 @@ class UdemyClient(BaseClient):
 
             return course
 
-        except httpx.HTTPError as exc:
-            raise UdemyAPIError(f"Error communicating with the API: {exc}") from exc
-        except Exception as exc:
-            raise UdemyAPIError(f"Unexpected error: {exc}") from exc
+        except httpx.HTTPStatusError as exc:
+            raise UdemyAPIError(f"HTTP error {exc.response.status_code}: {exc}") from exc
+        except httpx.RequestError as exc:
+            raise UdemyAPIError(f"Request error: {exc}") from exc
+        except ValueError as exc:
+            raise UdemyAPIError(f"JSON parsing error: {exc}") from exc
 
     def get_course_reviews(
         self, course_id: int, filters: ReviewFilter = ReviewFilter()
@@ -121,14 +125,14 @@ class UdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self.__base_url + f"courses/{course_id}/reviews/"
+        url = self._base_url + f"courses/{course_id}/reviews/"
         query_params = {
             key: str(value) for key, value in filters.model_dump(exclude_unset=True).items()
         }
 
         try:
             response = httpx.get(
-                url=url, params=query_params, auth=self.__auth, timeout=self.__timeout
+                url=url, params=query_params, auth=self._auth, timeout=self._timeout
             )
             response.raise_for_status()  # Raise exception for non-2xx status codes
             data = response.json()
@@ -146,10 +150,12 @@ class UdemyClient(BaseClient):
 
             return reviews
 
-        except httpx.HTTPError as exc:
-            raise UdemyAPIError(f"Error communicating with the API: {exc}") from exc
-        except Exception as exc:
-            raise UdemyAPIError(f"Unexpected error: {exc}") from exc
+        except httpx.HTTPStatusError as exc:
+            raise UdemyAPIError(f"HTTP error {exc.response.status_code}: {exc}") from exc
+        except httpx.RequestError as exc:
+            raise UdemyAPIError(f"Request error: {exc}") from exc
+        except ValueError as exc:
+            raise UdemyAPIError(f"JSON parsing error: {exc}") from exc
 
     def get_course_public_curriculum(
         self, course_id: int, page: int = 1, page_size: int = 10
@@ -163,9 +169,9 @@ class UdemyClient(BaseClient):
         Args:
             course_id (int): The ID of the course to retrieve the public curriculum list for.
             page (int, optional): Pagination parameter for retrieving specific pages.
-                Defaults to None.
+                Defaults to 1.
             page_size (int, optional): Pagination parameter for specifying the number of items per
-                page. Defaults to None.
+                page. Defaults to 10.
 
         Returns:
             A list of Chapter, Quiz or Lecture objects parsed from the API response.
@@ -174,12 +180,12 @@ class UdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self.__base_url + f"courses/{course_id}/public-curriculum-items/"
+        url = self._base_url + f"courses/{course_id}/public-curriculum-items/"
         query_params = {"page": page, "page_size": page_size}
 
         try:
             response = httpx.get(
-                url=url, params=query_params, auth=self.__auth, timeout=self.__timeout
+                url=url, params=query_params, auth=self._auth, timeout=self._timeout
             )
             response.raise_for_status()  # Raise exception for non-2xx status codes
             data = response.json()
@@ -191,7 +197,7 @@ class UdemyClient(BaseClient):
 
             curriculums = []
             for entry in curriculum_entries:
-                if entry["_class"] == ["chapter", "quiz"]:
+                if entry["_class"] in ["chapter", "quiz"]:
                     curriculums.append(entry)  # Chapters and Quizs can be directly added
                 elif entry["_class"] == "lecture":
                     parsed_entry = self._parse_entry(entry)
@@ -200,7 +206,11 @@ class UdemyClient(BaseClient):
                     # Don't handle unexpected item types
                     pass
 
-        except httpx.HTTPError as exc:
-            raise UdemyAPIError(f"Error communicating with the API: {exc}") from exc
-        except Exception as exc:
-            raise UdemyAPIError(f"Unexpected error: {exc}") from exc
+            return curriculums
+
+        except httpx.HTTPStatusError as exc:
+            raise UdemyAPIError(f"HTTP error {exc.response.status_code}: {exc}") from exc
+        except httpx.RequestError as exc:
+            raise UdemyAPIError(f"Request error: {exc}") from exc
+        except ValueError as exc:
+            raise UdemyAPIError(f"JSON parsing error: {exc}") from exc

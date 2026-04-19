@@ -20,13 +20,13 @@ class AsyncUdemyClient(BaseClient):
 
     async def __aenter__(self) -> Self:
         """Initializes the client for use within an async with block."""
-        # Perform any necessary setup tasks here
+        self._http_client = httpx.AsyncClient()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         """Cleans up resources when exiting the async with block."""
-        # Perform any necessary cleanup tasks here
-        pass
+        if hasattr(self, "_http_client"):
+            await self._http_client.aclose()
 
     async def get_courses(self, filters: CourseFilter = CourseFilter()) -> List[Course]:
         """
@@ -43,7 +43,7 @@ class AsyncUdemyClient(BaseClient):
                 code indicates an error.
         """
 
-        url = self.__base_url + "courses/"
+        url = self._base_url + "courses/"
         query_params = {
             key: str(value) for key, value in filters.model_dump(exclude_unset=True).items()
         }
@@ -69,10 +69,12 @@ class AsyncUdemyClient(BaseClient):
 
             return courses
 
-        except httpx.HTTPError as exc:
-            raise UdemyAPIError(f"Error communicating with the API: {exc}") from exc
-        except Exception as exc:
-            raise UdemyAPIError(f"Unexpected error: {exc}") from exc
+        except httpx.HTTPStatusError as exc:
+            raise UdemyAPIError(f"HTTP error {exc.response.status_code}: {exc}") from exc
+        except httpx.RequestError as exc:
+            raise UdemyAPIError(f"Request error: {exc}") from exc
+        except ValueError as exc:
+            raise UdemyAPIError(f"JSON parsing error: {exc}") from exc
 
     async def get_course_details(self, course_id: int) -> Course:
         """
@@ -89,7 +91,7 @@ class AsyncUdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self.__base_url + f"courses/{course_id}/"
+        url = self._base_url + f"courses/{course_id}/"
 
         try:
             async with httpx.AsyncClient() as client:
@@ -102,10 +104,12 @@ class AsyncUdemyClient(BaseClient):
 
             return course
 
-        except httpx.HTTPError as exc:
-            raise UdemyAPIError(f"Error communicating with the API: {exc}") from exc
-        except Exception as exc:
-            raise UdemyAPIError(f"Unexpected error: {exc}") from exc
+        except httpx.HTTPStatusError as exc:
+            raise UdemyAPIError(f"HTTP error {exc.response.status_code}: {exc}") from exc
+        except httpx.RequestError as exc:
+            raise UdemyAPIError(f"Request error: {exc}") from exc
+        except ValueError as exc:
+            raise UdemyAPIError(f"JSON parsing error: {exc}") from exc
 
     async def get_course_reviews(
         self, course_id: int, filters: ReviewFilter = ReviewFilter()
@@ -124,7 +128,7 @@ class AsyncUdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self.__base_url + f"courses/{course_id}/reviews/"
+        url = self._base_url + f"courses/{course_id}/reviews/"
         query_params = {
             key: str(value) for key, value in filters.model_dump(exclude_unset=True).items()
         }
@@ -150,10 +154,12 @@ class AsyncUdemyClient(BaseClient):
 
             return reviews
 
-        except httpx.HTTPError as exc:
-            raise UdemyAPIError(f"Error communicating with the API: {exc}") from exc
-        except Exception as exc:
-            raise UdemyAPIError(f"Unexpected error: {exc}") from exc
+        except httpx.HTTPStatusError as exc:
+            raise UdemyAPIError(f"HTTP error {exc.response.status_code}: {exc}") from exc
+        except httpx.RequestError as exc:
+            raise UdemyAPIError(f"Request error: {exc}") from exc
+        except ValueError as exc:
+            raise UdemyAPIError(f"JSON parsing error: {exc}") from exc
 
     async def get_course_public_curriculum(
         self, course_id: int, page: int = 1, page_size: int = 10
@@ -178,7 +184,7 @@ class AsyncUdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self.__base_url + f"courses/{course_id}/public-curriculum-items/"
+        url = self._base_url + f"courses/{course_id}/public-curriculum-items/"
         query_params = {"page": page, "page_size": page_size}
 
         try:
@@ -196,7 +202,7 @@ class AsyncUdemyClient(BaseClient):
 
             curriculums = []
             for entry in curriculum_entries:
-                if entry["_class"] == ["chapter", "quiz"]:
+                if entry["_class"] in ["chapter", "quiz"]:
                     curriculums.append(entry)  # Chapters and Quizs can be directly added
                 elif entry["_class"] == "lecture":
                     parsed_entry = self._parse_entry(entry)
@@ -205,7 +211,11 @@ class AsyncUdemyClient(BaseClient):
                     # Don't handle unexpected item types
                     pass
 
-        except httpx.HTTPError as exc:
-            raise UdemyAPIError(f"Error communicating with the API: {exc}") from exc
-        except Exception as exc:
-            raise UdemyAPIError(f"Unexpected error: {exc}") from exc
+            return curriculums
+
+        except httpx.HTTPStatusError as exc:
+            raise UdemyAPIError(f"HTTP error {exc.response.status_code}: {exc}") from exc
+        except httpx.RequestError as exc:
+            raise UdemyAPIError(f"Request error: {exc}") from exc
+        except ValueError as exc:
+            raise UdemyAPIError(f"JSON parsing error: {exc}") from exc

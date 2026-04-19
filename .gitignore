@@ -30,7 +30,6 @@ share/python-wheels/
 .coverage
 coverage.xml
 .pytest_cache/
-tests/
 
 # Environments
 .env
