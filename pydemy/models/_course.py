@@ -3,7 +3,7 @@ Pydantic model representing a Udemy Course object with nested models for price d
 instructors, and locale.
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -22,9 +22,9 @@ class PriceDetail(BaseModel):
 class Instructor(User):
     """Pydantic model for a course instructor inheriting from User."""
 
-    job_title: Optional[str] = None
-    image_50x50: Optional[str] = None
-    image_100x100: Optional[str] = None
+    job_title: str | None = None
+    image_50x50: str | None = None
+    image_100x100: str | None = None
     initials: str
     url: str
 
@@ -45,10 +45,10 @@ class Course(BaseModel):
     title: str
     url: str
     is_paid: bool
-    price: Optional[str]
-    price_detail: Optional[PriceDetail]
-    price_serve_tracking_id: Optional[str]
-    visible_instructors: List[Instructor]
+    price: str | None
+    price_detail: PriceDetail | None
+    price_serve_tracking_id: str | None
+    visible_instructors: list[Instructor]
     image_125_H: str
     image_240x135: str
     is_practice_test_course: bool
@@ -56,12 +56,12 @@ class Course(BaseModel):
     published_title: str
     tracking_id: str = ""
     locale: Locale
-    predictive_score: Optional[float] = None
-    relevancy_score: Optional[float] = None
-    input_features: Optional[Dict[str, Any]] = None
-    lecture_search_result: Optional[Dict[str, Any]] = None
-    curriculum_lectures: Optional[List[Dict[str, Any]]] = []
-    order_in_results: Optional[int] = None
-    curriculum_items: Optional[List[Dict[str, Any]]] = []
-    headline: Optional[str] = None
-    instructor_name: Optional[str] = None
+    predictive_score: float | None = None
+    relevancy_score: float | None = None
+    input_features: dict[str, Any] | None = None
+    lecture_search_result: dict[str, Any] | None = None
+    curriculum_lectures: list[dict[str, Any]] | None = []
+    order_in_results: int | None = None
+    curriculum_items: list[dict[str, Any]] | None = []
+    headline: str | None = None
+    instructor_name: str | None = None
