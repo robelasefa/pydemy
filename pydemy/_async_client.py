@@ -1,6 +1,6 @@
 """Asynchronously interact with the Udemy API for courses, reviews, curriculum, and more."""
 
-from typing import List, Self, Union, cast
+from typing import Self, cast
 
 import httpx
 
@@ -28,7 +28,7 @@ class AsyncUdemyClient(BaseClient):
         if hasattr(self, "_http_client"):
             await self._http_client.aclose()
 
-    async def get_courses(self, filters: CourseFilter = CourseFilter()) -> List[Course]:
+    async def get_courses(self, filters: CourseFilter = CourseFilter()) -> list[Course]:
         """
         Retrieves a list of Udemy courses based on provided search parameters asynchronously.
 
@@ -113,7 +113,7 @@ class AsyncUdemyClient(BaseClient):
 
     async def get_course_reviews(
         self, course_id: int, filters: ReviewFilter = ReviewFilter()
-    ) -> List[CourseReview]:
+    ) -> list[CourseReview]:
         """
         Retrieves a list of reviews for a course using review filters asynchronously.
 
@@ -163,7 +163,7 @@ class AsyncUdemyClient(BaseClient):
 
     async def get_course_public_curriculum(
         self, course_id: int, page: int = 1, page_size: int = 10
-    ) -> List[Union[Chapter, Quiz, Lecture]]:
+    ) -> list[Chapter | Quiz | Lecture]:
         """
         Retrieves the public curriculum list of a specified course asynchronously.
 
