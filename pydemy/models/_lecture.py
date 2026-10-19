@@ -1,7 +1,6 @@
 """Pydantic models representing a Lecture and nested Asset object."""
 
 from datetime import datetime
-from typing import Optional
 
 from ._mixins.serializers import DateTimeSerializer
 
@@ -35,7 +34,7 @@ class Lecture(DateTimeSerializer):
     description: str
     title_cleaned: str
     is_published: bool
-    transcript: Optional[str] = None
+    transcript: str | None = None
     is_downloadable: bool
     is_free: bool
     asset: Asset
