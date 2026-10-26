@@ -3,7 +3,6 @@ Pydantic model representing a Course Subcategory with a nested CourseCategory mo
 list of possible subcategories.
 """
 
-from typing import List
 
 from pydantic import BaseModel, Field
 
@@ -19,7 +18,7 @@ class CourseSubcategory(BaseModel):
     title_cleaned: str = Field(default_factory=lambda t: t.title.lower().replace(" ", "-"))
 
     # Define a list of possible subcategories
-    POSSIBLE_SUBCATEGORIES: List[str] = [
+    POSSIBLE_SUBCATEGORIES: list[str] = [
         "3D & Animation",
         "Accounting & Bookkeeping",
         "Affiliate Marketing",
