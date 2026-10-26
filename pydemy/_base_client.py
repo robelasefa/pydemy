@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 import httpx
 
@@ -86,7 +86,7 @@ class BaseClient:
         self._timeout = httpx.Timeout(value)
 
     @staticmethod
-    def _parse_entry(entry_dict: Dict[str, Any]) -> Dict[str, Any]:
+    def _parse_entry(entry_dict: dict[str, Any]) -> dict[str, Any]:
         """
         Parses an entry dictionary from the Udemy API response, removing the _class key
         and transforming it for creating Pydantic objects.
