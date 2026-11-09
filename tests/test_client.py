@@ -1,8 +1,9 @@
 """Tests for the synchronous UdemyClient."""
 
-import pytest
 from unittest.mock import Mock, patch
+
 import httpx
+import pytest
 
 from pydemy import UdemyClient
 from pydemy._exceptions import UdemyAPIError
@@ -62,7 +63,7 @@ class TestUdemyClient:
         with pytest.raises(ValueError, match="Timeout value must be non-negative"):
             sync_client.timeout = -1
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_courses_success(self, mock_get, sync_client, mock_course_response):
         """Test successful course retrieval."""
         mock_response = Mock()
@@ -71,14 +72,16 @@ class TestUdemyClient:
         mock_get.return_value = mock_response
 
         courses = sync_client.get_courses()
-        
+
         assert len(courses) == 1
         assert courses[0].id == 12345
         assert courses[0].title == "Test Python Course"
         mock_get.assert_called_once()
 
-    @patch('httpx.get')
-    def test_get_courses_with_filters(self, mock_get, sync_client, mock_course_response, sample_course_filter_data):
+    @patch("httpx.get")
+    def test_get_courses_with_filters(
+        self, mock_get, sync_client, mock_course_response, sample_course_filter_data
+    ):
         """Test course retrieval with filters."""
         mock_response = Mock()
         mock_response.json.return_value = mock_course_response
@@ -87,42 +90,44 @@ class TestUdemyClient:
 
         filters = CourseFilter(**sample_course_filter_data)
         courses = sync_client.get_courses(filters)
-        
+
         assert len(courses) == 1
         mock_get.assert_called_once()
-        
+
         # Check that query parameters were passed
         call_args = mock_get.call_args
-        assert 'params' in call_args.kwargs
+        assert "params" in call_args.kwargs
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_courses_http_error(self, mock_get, sync_client):
         """Test HTTP error handling in get_courses."""
-        mock_get.side_effect = httpx.HTTPStatusError("404 Not Found", request=Mock(), response=Mock(status_code=404))
-        
+        mock_get.side_effect = httpx.HTTPStatusError(
+            "404 Not Found", request=Mock(), response=Mock(status_code=404)
+        )
+
         with pytest.raises(UdemyAPIError, match="HTTP error 404"):
             sync_client.get_courses()
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_courses_request_error(self, mock_get, sync_client):
         """Test request error handling in get_courses."""
         mock_get.side_effect = httpx.RequestError("Connection error")
-        
+
         with pytest.raises(UdemyAPIError, match="Request error"):
             sync_client.get_courses()
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_courses_json_error(self, mock_get, sync_client):
         """Test JSON parsing error handling in get_courses."""
         mock_response = Mock()
         mock_response.json.side_effect = ValueError("Invalid JSON")
         mock_response.raise_for_status.return_value = None
         mock_get.return_value = mock_response
-        
+
         with pytest.raises(UdemyAPIError, match="JSON parsing error"):
             sync_client.get_courses()
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_course_details_success(self, mock_get, sync_client, mock_course_detail_response):
         """Test successful course details retrieval."""
         mock_response = Mock()
@@ -131,12 +136,12 @@ class TestUdemyClient:
         mock_get.return_value = mock_response
 
         course = sync_client.get_course_details(12345)
-        
+
         assert course.id == 12345
         assert course.title == "Test Python Course"
         mock_get.assert_called_once()
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_course_reviews_success(self, mock_get, sync_client, mock_review_response):
         """Test successful course reviews retrieval."""
         mock_response = Mock()
@@ -145,14 +150,16 @@ class TestUdemyClient:
         mock_get.return_value = mock_response
 
         reviews = sync_client.get_course_reviews(12345)
-        
+
         assert len(reviews) == 1
         assert reviews[0].id == 987
         assert reviews[0].content == "Great course!"
         mock_get.assert_called_once()
 
-    @patch('httpx.get')
-    def test_get_course_reviews_with_filters(self, mock_get, sync_client, mock_review_response, sample_review_filter_data):
+    @patch("httpx.get")
+    def test_get_course_reviews_with_filters(
+        self, mock_get, sync_client, mock_review_response, sample_review_filter_data
+    ):
         """Test course reviews retrieval with filters."""
         mock_response = Mock()
         mock_response.json.return_value = mock_review_response
@@ -161,16 +168,18 @@ class TestUdemyClient:
 
         filters = ReviewFilter(**sample_review_filter_data)
         reviews = sync_client.get_course_reviews(12345, filters)
-        
+
         assert len(reviews) == 1
         mock_get.assert_called_once()
-        
+
         # Check that query parameters were passed
         call_args = mock_get.call_args
-        assert 'params' in call_args.kwargs
+        assert "params" in call_args.kwargs
 
-    @patch('httpx.get')
-    def test_get_course_public_curriculum_success(self, mock_get, sync_client, mock_curriculum_response):
+    @patch("httpx.get")
+    def test_get_course_public_curriculum_success(
+        self, mock_get, sync_client, mock_curriculum_response
+    ):
         """Test successful curriculum retrieval."""
         mock_response = Mock()
         mock_response.json.return_value = mock_curriculum_response
@@ -178,12 +187,14 @@ class TestUdemyClient:
         mock_get.return_value = mock_response
 
         curriculum = sync_client.get_course_public_curriculum(12345)
-        
+
         assert len(curriculum) == 3
         mock_get.assert_called_once()
 
-    @patch('httpx.get')
-    def test_get_course_public_curriculum_with_pagination(self, mock_get, sync_client, mock_curriculum_response):
+    @patch("httpx.get")
+    def test_get_course_public_curriculum_with_pagination(
+        self, mock_get, sync_client, mock_curriculum_response
+    ):
         """Test curriculum retrieval with pagination parameters."""
         mock_response = Mock()
         mock_response.json.return_value = mock_curriculum_response
@@ -191,17 +202,17 @@ class TestUdemyClient:
         mock_get.return_value = mock_response
 
         curriculum = sync_client.get_course_public_curriculum(12345, page=2, page_size=20)
-        
+
         assert len(curriculum) == 3
         mock_get.assert_called_once()
-        
+
         # Check that pagination parameters were passed
         call_args = mock_get.call_args
-        assert 'params' in call_args.kwargs
-        assert call_args.kwargs['params']['page'] == 2
-        assert call_args.kwargs['params']['page_size'] == 20
+        assert "params" in call_args.kwargs
+        assert call_args.kwargs["params"]["page"] == 2
+        assert call_args.kwargs["params"]["page_size"] == 20
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_course_public_curriculum_parsing_chapter(self, mock_get, sync_client):
         """Test curriculum parsing for chapter entries."""
         response_data = {
@@ -210,7 +221,7 @@ class TestUdemyClient:
                     "_class": "chapter",
                     "id": 1,
                     "title": "Introduction",
-                    "description": "Course introduction"
+                    "description": "Course introduction",
                 }
             ]
         }
@@ -220,12 +231,12 @@ class TestUdemyClient:
         mock_get.return_value = mock_response
 
         curriculum = sync_client.get_course_public_curriculum(12345)
-        
+
         assert len(curriculum) == 1
         assert curriculum[0]["_class"] == "chapter"
         assert curriculum[0]["title"] == "Introduction"
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_course_public_curriculum_parsing_lecture(self, mock_get, sync_client):
         """Test curriculum parsing for lecture entries."""
         response_data = {
@@ -234,11 +245,7 @@ class TestUdemyClient:
                     "_class": "lecture",
                     "id": 2,
                     "title": "Getting Started",
-                    "asset": {
-                        "_class": "asset",
-                        "id": 123,
-                        "title": "Introduction Video"
-                    }
+                    "asset": {"_class": "asset", "id": 123, "title": "Introduction Video"},
                 }
             ]
         }
@@ -248,12 +255,12 @@ class TestUdemyClient:
         mock_get.return_value = mock_response
 
         curriculum = sync_client.get_course_public_curriculum(12345)
-        
+
         assert len(curriculum) == 1
         assert curriculum[0]._class == "lecture"
         assert curriculum[0].title == "Getting Started"
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_course_public_curriculum_parsing_quiz(self, mock_get, sync_client):
         """Test curriculum parsing for quiz entries."""
         response_data = {
@@ -263,7 +270,7 @@ class TestUdemyClient:
                     "id": 3,
                     "title": "Knowledge Check",
                     "duration": 300,
-                    "pass_percent": 80.0
+                    "pass_percent": 80.0,
                 }
             ]
         }
@@ -273,33 +280,25 @@ class TestUdemyClient:
         mock_get.return_value = mock_response
 
         curriculum = sync_client.get_course_public_curriculum(12345)
-        
+
         assert len(curriculum) == 1
         assert curriculum[0]["_class"] == "quiz"
         assert curriculum[0]["title"] == "Knowledge Check"
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_course_public_curriculum_unexpected_class(self, mock_get, sync_client):
         """Test curriculum parsing with unexpected class type."""
-        response_data = {
-            "results": [
-                {
-                    "_class": "unknown_type",
-                    "id": 4,
-                    "title": "Unknown Item"
-                }
-            ]
-        }
+        response_data = {"results": [{"_class": "unknown_type", "id": 4, "title": "Unknown Item"}]}
         mock_response = Mock()
         mock_response.json.return_value = response_data
         mock_response.raise_for_status.return_value = None
         mock_get.return_value = mock_response
 
         curriculum = sync_client.get_course_public_curriculum(12345)
-        
+
         assert len(curriculum) == 0  # Unexpected types should be ignored
 
-    @patch('httpx.get')
+    @patch("httpx.get")
     def test_get_courses_invalid_response_format(self, mock_get, sync_client):
         """Test handling of invalid response format."""
         mock_response = Mock()
@@ -314,7 +313,7 @@ class TestUdemyClient:
         """Test context manager functionality."""
         with UdemyClient(**client_credentials) as client:
             assert isinstance(client, UdemyClient)
-            assert hasattr(client, '_http_client')
-        
+            assert hasattr(client, "_http_client")
+
         # After exiting context, client should still exist but http_client might be closed
         assert isinstance(client, UdemyClient)
