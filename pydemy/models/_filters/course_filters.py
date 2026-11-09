@@ -1,7 +1,7 @@
 """Pydantic models and enums for filtering course search results on Udemy API."""
 
 from enum import Enum
-from typing import Optional, Self
+from typing import Self
 
 from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
 
@@ -48,16 +48,16 @@ class Duration(Enum):
 class CourseFilter(BaseModel):
     """Pydantic model for filtering course search results on the Udemy API."""
 
-    page: Optional[int] = 1
-    page_size: Optional[int] = 10
+    page: int | None = 1
+    page_size: int | None = 10
     search: str = ""
-    category: Optional[CourseCategory] = None
-    subcategory: Optional[CourseSubcategory] = None
+    category: CourseCategory | None = None
+    subcategory: CourseSubcategory | None = None
     price: Price = None
     is_affiliate_agreed: bool = False
     is_fixed_priced_deals_agreed: bool = False
     is_percentage_deals_agreed: bool = False
-    language: Optional[str] = Field(
+    language: str | None = Field(
         default="en", pattern=r"^[a-z]{2}$"
     )  # Filter courses by alpha-2 language code
     has_closed_caption: bool = False
@@ -82,7 +82,7 @@ class CourseFilter(BaseModel):
 
     @field_validator("category")
     @classmethod
-    def validate_category(cls, category: Optional[CourseCategory]) -> Optional[CourseCategory]:
+    def validate_category(cls, category: CourseCategory | None) -> CourseCategory | None:
         """
         Validates if the selected category is present in the available options.
 
