@@ -1,6 +1,7 @@
 """Python library for interacting with the Udemy Affiliate API."""
 
 __author__ = "mertigenet@gmail.com"
+__version__ = "0.3.0"
 __all__ = ["_exceptions", "models", "AsyncUdemyClient", "UdemyClient"]
 
 

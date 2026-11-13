@@ -3,7 +3,7 @@ Pydantic model representing a Course Subcategory with a nested CourseCategory mo
 list of possible subcategories.
 """
 
-from typing import List
+from typing import ClassVar, List, Optional
 
 from pydantic import BaseModel, Field
 
@@ -13,13 +13,13 @@ from ._course_category import CourseCategory
 class CourseSubcategory(BaseModel):
     """Pydantic model for a Course Subcategory on the Udemy API."""
 
-    category: CourseCategory
-    sort_order: int
-    title: str
-    title_cleaned: str = Field(default_factory=lambda t: t.title.lower().replace(" ", "-"))
+    category: Optional[CourseCategory] = None
+    sort_order: int = 0
+    title: str = ""
+    title_cleaned: str = ""
 
     # Define a list of possible subcategories
-    POSSIBLE_SUBCATEGORIES: List[str] = [
+    POSSIBLE_SUBCATEGORIES: ClassVar[List[str]] = [
         "3D & Animation",
         "Accounting & Bookkeeping",
         "Affiliate Marketing",

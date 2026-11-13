@@ -21,6 +21,13 @@ class DateTimeSerializer(BaseModel):
             field_value = getattr(self, field_name)
             if isinstance(field_value, datetime):
                 model_dict[field_name] = field_value.isoformat()
+            elif isinstance(field_value, BaseModel):
+                model_dict[field_name] = field_value.model_dump()
+            elif isinstance(field_value, list):
+                model_dict[field_name] = [
+                    item.model_dump() if isinstance(item, BaseModel) else item
+                    for item in field_value
+                ]
             else:
                 model_dict[field_name] = field_value
         return model_dict

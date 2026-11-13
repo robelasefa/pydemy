@@ -45,83 +45,96 @@ class Duration(Enum):
     EXTRA_LONG = "extraLong"
 
 
+_PRICE_ALIASES = {
+    "paid": Price.PRICE_PAID,
+    "free": Price.PRICE_FREE,
+    "price-paid": Price.PRICE_PAID,
+    "price-free": Price.PRICE_FREE,
+}
+
+
 class CourseFilter(BaseModel):
     """Pydantic model for filtering course search results on the Udemy API."""
 
     page: Optional[int] = 1
     page_size: Optional[int] = 10
     search: str = ""
-    category: Optional[CourseCategory] = None
-    subcategory: Optional[CourseSubcategory] = None
-    price: Price = None
+    category: Optional[str] = None
+    subcategory: Optional[str] = None
+    price: Optional[Price] = None
     is_affiliate_agreed: bool = False
     is_fixed_priced_deals_agreed: bool = False
     is_percentage_deals_agreed: bool = False
-    language: Optional[str] = Field(
-        default="en", pattern=r"^[a-z]{2}$"
-    )  # Filter courses by alpha-2 language code
+    language: Optional[str] = Field(default="en", pattern=r"^[a-z]{2}$")
     has_closed_caption: bool = False
     has_coding_exercises: bool = False
     has_simple_quiz: bool = False
-    instructional_level: InstructionalLevel = None
-    ordering: Ordering = None
-    ratings: str = None
-    duration: Duration = None
+    instructional_level: Optional[InstructionalLevel] = None
+    ordering: Optional[Ordering] = None
+    ratings: Optional[str] = None
+    duration: Optional[Duration] = None
 
     @model_validator(mode="after")
     def validate_page_and_size(self) -> Self:
-        """
-        Validates that the combination of page and page_size does not exceed a limit.
-
-        Raises:
-            ValueError: If the product of page and page_size is greater than 10000.
-        """
         if (self.page or 0) * (self.page_size or 0) > 10000:
             raise ValueError("page * page_size cannot be greater than 10000")
         return self
 
-    @field_validator("category")
+    @field_validator("price", mode="before")
     @classmethod
-    def validate_category(cls, category: Optional[CourseCategory]) -> Optional[CourseCategory]:
-        """
-        Validates if the selected category is present in the available options.
+    def _coerce_price(cls, value):
+        if value is None:
+            return None
+        if isinstance(value, Price):
+            return value
+        if isinstance(value, str):
+            key = value.strip().lower()
+            if key in _PRICE_ALIASES:
+                return _PRICE_ALIASES[key]
+            try:
+                return Price(value)
+            except ValueError:
+                pass
+        raise ValueError("Invalid price filter value")
 
-        Args:
-            category (CourseCategory, optional): The selected course category.
+    @field_validator("category", mode="before")
+    @classmethod
+    def _validate_category(cls, value):
+        if value is None:
+            return None
+        if isinstance(value, str):
+            if value not in CourseCategory.POSSIBLE_CATEGORIES:
+                raise ValueError("Invalid course category")
+            return value
+        raise ValueError("Invalid course category")
 
-        Raises:
-            ValidationError: If the category is invalid.
+    @field_validator("subcategory", mode="before")
+    @classmethod
+    def _validate_subcategory(cls, value):
+        if value is None:
+            return None
+        if isinstance(value, str):
+            if value not in CourseSubcategory.POSSIBLE_SUBCATEGORIES:
+                raise ValueError("Invalid course subcategory")
+            return value
+        raise ValueError("Invalid course subcategory")
 
-        Returns:
-            (CourseCategory, optional): The validated category.
-        """
-        if category and category.title not in CourseCategory.POSSIBLE_CATEGORIES:
-            error_messgae = (
-                "Invalid course category selected. Please refer to the Udemy documentation "
-                "for available categories: https://www.udemy.com/developers/affiliate/models/course-category/"  # pylint: disable=line-too-long
-            )
-            raise ValidationError(error_messgae)
-        return category
-
-    @model_validator(mode="after")
-    def validate_subcategory(self) -> Self:
-        """
-        Validates if the selected subcategory is present in the available options
-        for the parent category.
-
-        Raises:
-            ValidationError: If the subcategory is invalid or the parent category is missing.
-        """
-        category = self.category
-        subcategory = self.subcategory
-
-        if subcategory:
-            if not category:
-                raise ValidationError("Please select a parent category for subcategory.")
-            if category.title.capitalize() not in CourseSubcategory.POSSIBLE_SUBCATEGORIES:
-                error_messgae = (
-                    "Invalid course subcategory selected. Please refer to the Udemy documentation "
-                    "for available categories: https://www.udemy.com/developers/affiliate/models/course-subcategory/"  # pylint: disable=line-too-long
-                )
-                raise ValidationError(error_messgae)
-        return self
+    @field_validator("instructional_level", "ordering", "duration", mode="before")
+    @classmethod
+    def _coerce_enum(cls, value, info):
+        if value is None:
+            return None
+        field = info.field_name
+        enum_map = {
+            "instructional_level": InstructionalLevel,
+            "ordering": Ordering,
+            "duration": Duration,
+        }[field]
+        if isinstance(value, enum_map):
+            return value
+        if isinstance(value, str):
+            try:
+                return enum_map(value)
+            except ValueError:
+                pass
+        raise ValueError(f"Invalid {field} value")

@@ -11,7 +11,7 @@ def get_long_description() -> str:
 
 setup(
     name="pydemy",
-    version="0.2.9",
+    version="0.3.0",
     description="A Python library for interacting with the Udemy Affiliate API.",
     long_description=get_long_description(),
     long_description_content_type="text/markdown",
@@ -19,5 +19,5 @@ setup(
     author_email="mertigenet@gmail.com",
     url="https://github.com/robelasefa/pydemy",
     packages=find_packages(exclude=["tests*"]),
-    install_requires=["requests~=2.32.3", "pydantic>=2.9.1,<2.11.0"],
+    install_requires=["httpx>=0.27,<0.29", "pydantic>=2.9,<3"],
 )

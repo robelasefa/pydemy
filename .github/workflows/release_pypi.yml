@@ -6,8 +6,22 @@ on:
       - "v*" # Triggers only on version tags
 
 jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - run: pip install -e .
+      - run: python -m pytest tests/ -q
+
   build:
     name: Build Distribution
+    needs: test
     runs-on: ubuntu-22.04
 
     steps:

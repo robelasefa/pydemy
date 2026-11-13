@@ -43,21 +43,27 @@ class AsyncUdemyClient(BaseClient):
                 code indicates an error.
         """
 
-        url = self._base_url + "courses/"
+        url = self.base_url + "courses/"
         query_params = {
             key: str(value) for key, value in filters.model_dump(exclude_unset=True).items()
         }
 
         try:
-            async with httpx.AsyncClient() as client:
-                response = await client.get(
+            stored_client = getattr(self, "_http_client", None)
+            if stored_client is not None:
+                response = await stored_client.get(
                     url=url, params=query_params, auth=self._auth, timeout=self._timeout
                 )
-                response.raise_for_status()  # Raise exception for non-2xx status codes
-                data = response.json()
+            else:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(
+                        url=url, params=query_params, auth=self._auth, timeout=self._timeout
+                    )
+            response.raise_for_status()  # Raise exception for non-2xx status codes
+            data = response.json()
 
             # Extract course entries based on the response format
-            course_entries = cast(dict, data).get("results", [data])
+            course_entries = cast(dict, data).get("results")
             if not isinstance(course_entries, list):
                 raise UdemyAPIError(f"Unexpected response format: {data}")
 
@@ -91,13 +97,17 @@ class AsyncUdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self._base_url + f"courses/{course_id}/"
+        url = self.base_url + f"courses/{course_id}/"
 
         try:
-            async with httpx.AsyncClient() as client:
-                response = await client.get(url=url, auth=self._auth, timeout=self._timeout)
-                response.raise_for_status()  # Raise exception for non-2xx status codes
-                course_data = response.json()
+            stored_client = getattr(self, "_http_client", None)
+            if stored_client is not None:
+                response = await stored_client.get(url=url, auth=self._auth, timeout=self._timeout)
+            else:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(url=url, auth=self._auth, timeout=self._timeout)
+            response.raise_for_status()  # Raise exception for non-2xx status codes
+            course_data = response.json()
 
             parsed_course_data = self._parse_entry(course_data)
             course = Course(**parsed_course_data)
@@ -128,21 +138,27 @@ class AsyncUdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self._base_url + f"courses/{course_id}/reviews/"
+        url = self.base_url + f"courses/{course_id}/reviews/"
         query_params = {
             key: str(value) for key, value in filters.model_dump(exclude_unset=True).items()
         }
 
         try:
-            async with httpx.AsyncClient() as client:
-                response = await client.get(
+            stored_client = getattr(self, "_http_client", None)
+            if stored_client is not None:
+                response = await stored_client.get(
                     url=url, params=query_params, auth=self._auth, timeout=self._timeout
                 )
-                response.raise_for_status()  # Raise exception for non-2xx status codes
-                data = response.json()
+            else:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(
+                        url=url, params=query_params, auth=self._auth, timeout=self._timeout
+                    )
+            response.raise_for_status()  # Raise exception for non-2xx status codes
+            data = response.json()
 
             # Extract course entries based on the response format
-            review_entries = cast(dict, data).get("results", [data])
+            review_entries = cast(dict, data).get("results")
             if not isinstance(review_entries, list):
                 raise UdemyAPIError(f"Unexpected response format: {data}")
 
@@ -184,29 +200,38 @@ class AsyncUdemyClient(BaseClient):
             UdemyAPIError: If there's an error communicating with the API or the response
                 status code indicates an error.
         """
-        url = self._base_url + f"courses/{course_id}/public-curriculum-items/"
+        url = self.base_url + f"courses/{course_id}/public-curriculum-items/"
         query_params = {"page": page, "page_size": page_size}
 
         try:
-            async with httpx.AsyncClient() as client:
-                response = await client.get(
+            stored_client = getattr(self, "_http_client", None)
+            if stored_client is not None:
+                response = await stored_client.get(
                     url=url, params=query_params, auth=self._auth, timeout=self._timeout
                 )
-                response.raise_for_status()  # Raise exception for non-2xx status codes
-                data = response.json()
+            else:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(
+                        url=url, params=query_params, auth=self._auth, timeout=self._timeout
+                    )
+            response.raise_for_status()  # Raise exception for non-2xx status codes
+            data = response.json()
 
             # Extract course entries based on the response format
-            curriculum_entries = cast(dict, data).get("results", [data])
+            curriculum_entries = cast(dict, data).get("results")
             if not isinstance(curriculum_entries, list):
                 raise UdemyAPIError(f"Unexpected response format: {data}")
 
             curriculums = []
             for entry in curriculum_entries:
-                if entry["_class"] in ["chapter", "quiz"]:
-                    curriculums.append(entry)  # Chapters and Quizs can be directly added
-                elif entry["_class"] == "lecture":
-                    parsed_entry = self._parse_entry(entry)
-                    curriculums.append(parsed_entry)
+                item_class = entry.get("_class")
+                parsed_entry = self._parse_entry(entry)
+                if item_class == "chapter":
+                    curriculums.append(Chapter(**parsed_entry))
+                elif item_class == "quiz":
+                    curriculums.append(Quiz(**parsed_entry))
+                elif item_class == "lecture":
+                    curriculums.append(Lecture(**parsed_entry))
                 else:
                     # Don't handle unexpected item types
                     pass

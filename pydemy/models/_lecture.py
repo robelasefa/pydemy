@@ -16,9 +16,9 @@ class Asset(DateTimeSerializer):
     """
 
     id: int
-    asset_type: str
-    title: str
-    created: datetime
+    asset_type: Optional[str] = None
+    title: Optional[str] = None
+    created: Optional[datetime] = None
 
 
 class Lecture(DateTimeSerializer):
@@ -30,14 +30,14 @@ class Lecture(DateTimeSerializer):
     """
 
     id: int
-    title: str
-    created: datetime
-    description: str
-    title_cleaned: str
-    is_published: bool
+    title: Optional[str] = None
+    created: Optional[datetime] = None
+    description: Optional[str] = None
+    title_cleaned: Optional[str] = None
+    is_published: bool = False
     transcript: Optional[str] = None
-    is_downloadable: bool
-    is_free: bool
-    asset: Asset
-    sort_order: int
-    can_be_previewed: bool
+    is_downloadable: bool = False
+    is_free: bool = False
+    asset: Optional[Asset] = None
+    sort_order: int = 0
+    can_be_previewed: bool = False

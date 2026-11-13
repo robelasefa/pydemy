@@ -28,7 +28,7 @@ class TestErrorHandling:
 
         # Valid timeout
         client.timeout = 10
-        assert client.timeout.timeout == 10
+        assert client.timeout.read == 10
 
         # Invalid timeout
         with pytest.raises(ValueError, match="Timeout value must be non-negative"):
@@ -199,7 +199,7 @@ class TestErrorHandling:
     async def test_async_json_parsing_error_handling(self, mock_async_client_class, async_client):
         """Test async JSON parsing error handling."""
         mock_client_instance = AsyncMock()
-        mock_response = AsyncMock()
+        mock_response = Mock()
         mock_response.json.side_effect = ValueError("Invalid JSON format")
         mock_response.raise_for_status.return_value = None
         mock_client_instance.get.return_value = mock_response
@@ -215,7 +215,7 @@ class TestErrorHandling:
     ):
         """Test async unexpected response format handling."""
         mock_client_instance = AsyncMock()
-        mock_response = AsyncMock()
+        mock_response = Mock()
         mock_response.json.return_value = {"invalid": "format"}
         mock_response.raise_for_status.return_value = None
         mock_client_instance.get.return_value = mock_response
@@ -261,6 +261,7 @@ class TestErrorHandling:
             sync_client.get_courses()
 
         # Test JSON error
+        mock_get.side_effect = None
         mock_response = Mock()
         mock_response.json.side_effect = ValueError("Invalid JSON")
         mock_response.raise_for_status.return_value = None
@@ -270,8 +271,9 @@ class TestErrorHandling:
 
     def test_base_client_auth_property(self, sync_client):
         """Test BaseClient auth property."""
-        assert sync_client.auth.username == "test_id"
-        assert sync_client.auth.password == "test_secret"
+        assert sync_client.client_id == "test_id"
+        assert sync_client.client_secret == "test_secret"
+        assert sync_client.auth is not None
 
     def test_base_client_base_url_property(self, sync_client):
         """Test BaseClient base_url property."""

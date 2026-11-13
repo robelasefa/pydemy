@@ -1,4 +1,5 @@
-from typing import Any, Dict
+import warnings
+from typing import Any, Dict, Optional
 
 import httpx
 
@@ -14,18 +15,9 @@ class BaseClient:
 
     __base_url = "https://www.udemy.com/api-2.0/"
 
-    def __init__(self, client_id: str, client_secret: str, timeout: int = 5) -> None:
-        """
-        Initializes the base Udemy client.
-
-        Args:
-            client_id (str): Your Udemy client ID.
-            client_secret (str): Your Udemy client secret.
-            timeout (int, optional): The timeout value in seconds for requests to the Udemy API.
-                Defaults to 5.
-        Raises:
-            UdemyAPIError: If either client_id or client_secret is not provided.
-        """
+    def __init__(
+        self, client_id: Optional[str] = None, client_secret: Optional[str] = None, timeout: int = 5
+    ) -> None:
         if not client_id:
             raise UdemyAPIError("The argument client_id is required.")
         if not client_secret:
@@ -35,6 +27,13 @@ class BaseClient:
         self._client_secret = client_secret
         self._auth = httpx.BasicAuth(self._client_id, self._client_secret)
         self._timeout = httpx.Timeout(timeout)
+
+        warnings.warn(
+            "Udemy discontinued the Affiliate API on Jan 1, 2025; pydemy is archived "
+            "and no longer functional. See the README for details.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
     @property
     def base_url(self) -> str:

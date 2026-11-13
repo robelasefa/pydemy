@@ -6,7 +6,7 @@ from pydantic import ValidationError
 from pydemy.models import (
     Course, CourseReview, CourseFilter, ReviewFilter,
     Instructor, Locale, PriceDetail, Chapter, Lecture,
-    Asset, Quiz, User
+    Asset, Quiz, User, Price
 )
 
 
@@ -38,7 +38,7 @@ class TestCourseFilter:
         assert data["page"] == 2
         assert data["page_size"] == 20
         assert data["category"] == "Development"
-        assert data["price"] == "paid"
+        assert data["price"] == Price.PRICE_PAID
 
 
 class TestReviewFilter:

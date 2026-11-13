@@ -161,7 +161,7 @@ class TestContextManagers:
             client.timeout = 20
         
         # Timeout should be preserved after context
-        assert client.timeout == 20
+        assert client.timeout.read == 20
 
     @pytest.mark.asyncio
     async def test_async_context_manager_client_attributes_preserved(self, client_credentials):
@@ -175,7 +175,7 @@ class TestContextManagers:
             client.timeout = 20
         
         # Timeout should be preserved after context
-        assert client.timeout == 20
+        assert client.timeout.read == 20
 
     def test_sync_context_manager_httpx_client_creation(self, client_credentials):
         """Test that httpx.Client is created properly in sync context manager."""

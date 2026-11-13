@@ -12,13 +12,10 @@
 [![License](https://img.shields.io/github/license/robelasefa/pydemy)](https://github.com/robelasefa/pydemy/blob/main/LICENSE)
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/robelasefa/pydemy/main.svg)](https://results.pre-commit.ci/latest/github/robelasefa/pydemy/main)
 
-> ⚠️ **Important Notice (January 2025)**  
-> The **Udemy Affiliate API (v2.0)** has been **discontinued** as of **January 1, 2025**, according to Udemy’s official documentation.  
->  
-> As a result, **Pydemy is no longer functional**, since it depends on the discontinued API.  
->  
-> This repository remains available for **educational and archival purposes only**.  
-> Future updates may explore compatibility with alternative APIs or platforms.
+> ⚠️ **Archived (January 2025)**  
+> The **Udemy Affiliate API (v2.0)** was discontinued on **January 1, 2025**.  
+> Pydemy is no longer functional and is **archived**; `0.3.0` is the final release.  
+> Kept for educational and reference purposes.
 
 ---
 

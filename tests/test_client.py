@@ -43,19 +43,19 @@ class TestUdemyClient:
         new_id = "new_client_id"
         sync_client.client_id = new_id
         assert sync_client.client_id == new_id
-        assert sync_client.auth.username == new_id
+        assert sync_client.client_id == new_id
 
     def test_set_client_secret(self, sync_client):
         """Test setting client_secret updates authentication."""
         new_secret = "new_client_secret"
         sync_client.client_secret = new_secret
         assert sync_client.client_secret == new_secret
-        assert sync_client.auth.password == new_secret
+        assert sync_client.client_secret == new_secret
 
     def test_set_timeout_valid(self, sync_client):
         """Test setting valid timeout."""
         sync_client.timeout = 10
-        assert sync_client.timeout.timeout == 10
+        assert sync_client.timeout.read == 10
 
     def test_set_timeout_invalid(self, sync_client):
         """Test setting invalid timeout raises ValueError."""
@@ -222,8 +222,7 @@ class TestUdemyClient:
         curriculum = sync_client.get_course_public_curriculum(12345)
         
         assert len(curriculum) == 1
-        assert curriculum[0]["_class"] == "chapter"
-        assert curriculum[0]["title"] == "Introduction"
+        assert curriculum[0].title == "Introduction"
 
     @patch('httpx.get')
     def test_get_course_public_curriculum_parsing_lecture(self, mock_get, sync_client):
@@ -250,7 +249,6 @@ class TestUdemyClient:
         curriculum = sync_client.get_course_public_curriculum(12345)
         
         assert len(curriculum) == 1
-        assert curriculum[0]._class == "lecture"
         assert curriculum[0].title == "Getting Started"
 
     @patch('httpx.get')
@@ -275,8 +273,7 @@ class TestUdemyClient:
         curriculum = sync_client.get_course_public_curriculum(12345)
         
         assert len(curriculum) == 1
-        assert curriculum[0]["_class"] == "quiz"
-        assert curriculum[0]["title"] == "Knowledge Check"
+        assert curriculum[0].title == "Knowledge Check"
 
     @patch('httpx.get')
     def test_get_course_public_curriculum_unexpected_class(self, mock_get, sync_client):

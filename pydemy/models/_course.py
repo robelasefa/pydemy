@@ -13,10 +13,10 @@ from ._user import User
 class PriceDetail(BaseModel):
     """Pydantic model for a course's price details."""
 
-    amount: float
-    currency: str
-    price_string: str
-    currency_symbol: str
+    amount: float = 0
+    currency: str = ""
+    price_string: str = ""
+    currency_symbol: str = ""
 
 
 class Instructor(User):
@@ -25,17 +25,17 @@ class Instructor(User):
     job_title: Optional[str] = None
     image_50x50: Optional[str] = None
     image_100x100: Optional[str] = None
-    initials: str
-    url: str
+    initials: Optional[str] = None
+    url: Optional[str] = None
 
 
 class Locale(BaseModel):
     """Pydantic model for a course's locale information."""
 
-    locale: str
-    title: str
-    english_title: str
-    simple_english_title: str
+    locale: str = ""
+    title: Optional[str] = None
+    english_title: Optional[str] = None
+    simple_english_title: Optional[str] = None
 
 
 class Course(BaseModel):
@@ -43,19 +43,19 @@ class Course(BaseModel):
 
     id: int
     title: str
-    url: str
-    is_paid: bool
-    price: Optional[str]
-    price_detail: Optional[PriceDetail]
-    price_serve_tracking_id: Optional[str]
-    visible_instructors: List[Instructor]
-    image_125_H: str
-    image_240x135: str
-    is_practice_test_course: bool
-    image_480x270: str
-    published_title: str
+    url: Optional[str] = None
+    is_paid: bool = False
+    price: Optional[str] = None
+    price_detail: Optional[PriceDetail] = None
+    price_serve_tracking_id: Optional[str] = None
+    visible_instructors: List[Instructor] = []
+    image_125_H: Optional[str] = None
+    image_240x135: Optional[str] = None
+    is_practice_test_course: bool = False
+    image_480x270: Optional[str] = None
+    published_title: Optional[str] = None
     tracking_id: str = ""
-    locale: Locale
+    locale: Optional[Locale] = None
     predictive_score: Optional[float] = None
     relevancy_score: Optional[float] = None
     input_features: Optional[Dict[str, Any]] = None

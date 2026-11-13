@@ -1,6 +1,7 @@
 """Pydantic model representing a Chapter object as inferred from the Udemy API response."""
 
 from datetime import datetime
+from typing import Optional
 
 from ._mixins.serializers import DateTimeSerializer
 
@@ -14,8 +15,8 @@ class Chapter(DateTimeSerializer):
     """
 
     id: int
-    created: datetime
-    sort_order: int
-    title: str
-    description: str
-    is_published: bool
+    created: Optional[datetime] = None
+    sort_order: int = 0
+    title: Optional[str] = None
+    description: Optional[str] = None
+    is_published: bool = False
