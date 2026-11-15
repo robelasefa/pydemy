@@ -80,6 +80,12 @@ class CourseFilter(BaseModel):
             raise ValueError("page * page_size cannot be greater than 10000")
         return self
 
+    @model_validator(mode="after")
+    def validate_subcategory_parent(self) -> Self:
+        if self.subcategory and not self.category:
+            raise ValueError("Please select a parent category for subcategory.")
+        return self
+
     @field_validator("price", mode="before")
     @classmethod
     def _coerce_price(cls, value):

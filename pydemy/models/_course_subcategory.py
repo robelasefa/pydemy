@@ -5,7 +5,7 @@ list of possible subcategories.
 
 from typing import ClassVar, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, model_validator
 
 from ._course_category import CourseCategory
 
@@ -16,7 +16,15 @@ class CourseSubcategory(BaseModel):
     category: Optional[CourseCategory] = None
     sort_order: int = 0
     title: str = ""
-    title_cleaned: str = ""
+    title_cleaned: Optional[str] = None
+
+    @model_validator(mode="after")
+    def _generate_title_cleaned(self):
+        if not self.title_cleaned and self.title:
+            self.title_cleaned = self.title.lower().replace(" ", "-")
+        if self.title_cleaned is None:
+            self.title_cleaned = ""
+        return self
 
     # Define a list of possible subcategories
     POSSIBLE_SUBCATEGORIES: ClassVar[List[str]] = [

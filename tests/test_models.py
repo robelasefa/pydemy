@@ -1,12 +1,14 @@
 """Tests for Pydantic models."""
 
+from datetime import datetime
+
 import pytest
 from pydantic import ValidationError
 
 from pydemy.models import (
     Course, CourseReview, CourseFilter, ReviewFilter,
     Instructor, Locale, PriceDetail, Chapter, Lecture,
-    Asset, Quiz, User, Price
+    Asset, Quiz, User, Price, CourseSubcategory
 )
 
 
@@ -407,3 +409,44 @@ class TestModelValidation:
         """Test Instructor missing required field."""
         with pytest.raises(ValidationError):
             Instructor(id=678)  # Missing required display_name field
+
+
+class TestSerializersRegression:
+    """Regression tests for recursive datetime serialization."""
+
+    def test_serialize_datetimes_recursive(self):
+        asset = Asset(id=1, title="Video", created=datetime(2023, 2, 2, 0, 0, 0))
+        lecture = Lecture(id=2, title="Intro", created=datetime(2023, 1, 1, 0, 0, 0), asset=asset)
+        data = lecture.model_dump()
+        assert data["created"] == "2023-01-01T00:00:00"
+        assert data["asset"]["created"] == "2023-02-02T00:00:00"
+
+    def test_serialize_datetimes_top_level(self):
+        chapter = Chapter(id=1, title="Ch", created=datetime(2023, 3, 3, 0, 0, 0))
+        data = chapter.model_dump()
+        assert data["created"] == "2023-03-03T00:00:00"
+
+
+class TestCourseFilterRegression:
+    """Regression tests for subcategory parent requirement."""
+
+    def test_subcategory_requires_category(self):
+        with pytest.raises(ValidationError):
+            CourseFilter(subcategory="3D & Animation")
+
+    def test_subcategory_with_category_ok(self):
+        cf = CourseFilter(category="Design", subcategory="3D & Animation")
+        assert cf.category == "Design"
+        assert cf.subcategory == "3D & Animation"
+
+
+class TestCourseSubcategoryRegression:
+    """Regression tests for automatic title_cleaned generation."""
+
+    def test_title_cleaned_auto_generated(self):
+        sub = CourseSubcategory(title="Web Development")
+        assert sub.title_cleaned == "web-development"
+
+    def test_title_cleaned_explicit_preserved(self):
+        sub = CourseSubcategory(title="Web Development", title_cleaned="wd")
+        assert sub.title_cleaned == "wd"

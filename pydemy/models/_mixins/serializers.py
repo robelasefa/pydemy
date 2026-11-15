@@ -14,20 +14,24 @@ class DateTimeSerializer(BaseModel):
         """
         Serializes the model to a dictionary.
 
-        Converts datetime fields to ISO 8601 format for JSON compatibility.
+        Converts datetime fields to ISO 8601 format for JSON compatibility,
+        recursing into nested models, lists, and dictionaries.
         """
-        model_dict = {}
-        for field_name, _ in self.model_fields.items():
-            field_value = getattr(self, field_name)
-            if isinstance(field_value, datetime):
-                model_dict[field_name] = field_value.isoformat()
-            elif isinstance(field_value, BaseModel):
-                model_dict[field_name] = field_value.model_dump()
-            elif isinstance(field_value, list):
-                model_dict[field_name] = [
-                    item.model_dump() if isinstance(item, BaseModel) else item
-                    for item in field_value
-                ]
-            else:
-                model_dict[field_name] = field_value
-        return model_dict
+
+        def _serialize(value: Any) -> Any:
+            if isinstance(value, datetime):
+                return value.isoformat()
+            if isinstance(value, BaseModel):
+                return {
+                    name: _serialize(getattr(value, name))
+                    for name in type(value).model_fields
+                }
+            if isinstance(value, list):
+                return [_serialize(item) for item in value]
+            if isinstance(value, tuple):
+                return [_serialize(item) for item in value]
+            if isinstance(value, dict):
+                return {key: _serialize(item) for key, item in value.items()}
+            return value
+
+        return {name: _serialize(getattr(self, name)) for name in type(self).model_fields}

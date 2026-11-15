@@ -43,14 +43,18 @@ class TestUdemyClient:
         new_id = "new_client_id"
         sync_client.client_id = new_id
         assert sync_client.client_id == new_id
-        assert sync_client.client_id == new_id
+        assert sync_client.auth._auth_header == httpx.BasicAuth(
+            new_id, sync_client.client_secret
+        )._auth_header
 
     def test_set_client_secret(self, sync_client):
         """Test setting client_secret updates authentication."""
         new_secret = "new_client_secret"
         sync_client.client_secret = new_secret
         assert sync_client.client_secret == new_secret
-        assert sync_client.client_secret == new_secret
+        assert sync_client.auth._auth_header == httpx.BasicAuth(
+            sync_client.client_id, new_secret
+        )._auth_header
 
     def test_set_timeout_valid(self, sync_client):
         """Test setting valid timeout."""
