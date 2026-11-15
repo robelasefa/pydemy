@@ -16,7 +16,10 @@ class BaseClient:
     __base_url = "https://www.udemy.com/api-2.0/"
 
     def __init__(
-        self, client_id: Optional[str] = None, client_secret: Optional[str] = None, timeout: int = 5
+        self,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        timeout: int = 5,
     ) -> None:
         if not client_id:
             raise UdemyAPIError("The argument client_id is required.")

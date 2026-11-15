@@ -3,7 +3,7 @@
 from enum import Enum
 from typing import Optional, Self
 
-from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from .._course_category import CourseCategory
 from .._course_subcategory import CourseSubcategory

@@ -5,7 +5,7 @@ list of possible subcategories.
 
 from typing import ClassVar, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from ._course_category import CourseCategory
 
