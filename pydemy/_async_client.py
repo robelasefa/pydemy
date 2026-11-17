@@ -1,6 +1,11 @@
 """Asynchronously interact with the Udemy API for courses, reviews, curriculum, and more."""
 
-from typing import Self, cast
+from typing import cast
+
+try:
+    from typing import Self
+except ImportError:  # Python < 3.11
+    from typing_extensions import Self
 
 import httpx
 

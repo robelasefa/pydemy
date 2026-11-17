@@ -1,7 +1,11 @@
 """Pydantic models and enums for filtering course search results on Udemy API."""
 
 from enum import Enum
-from typing import Self
+
+try:
+    from typing import Self
+except ImportError:  # Python < 3.11
+    from typing_extensions import Self
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
