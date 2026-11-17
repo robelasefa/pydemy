@@ -1,5 +1,5 @@
 import warnings
-from typing import Any, Dict, Optional
+from typing import Any
 
 import httpx
 
@@ -16,7 +16,10 @@ class BaseClient:
     __base_url = "https://www.udemy.com/api-2.0/"
 
     def __init__(
-        self, client_id: Optional[str] = None, client_secret: Optional[str] = None, timeout: int = 5
+        self,
+        client_id: str | None = None,
+        client_secret: str | None = None,
+        timeout: int = 5,
     ) -> None:
         if not client_id:
             raise UdemyAPIError("The argument client_id is required.")
@@ -85,7 +88,7 @@ class BaseClient:
         self._timeout = httpx.Timeout(value)
 
     @staticmethod
-    def _parse_entry(entry_dict: Dict[str, Any]) -> Dict[str, Any]:
+    def _parse_entry(entry_dict: dict[str, Any]) -> dict[str, Any]:
         """
         Parses an entry dictionary from the Udemy API response, removing the _class key
         and transforming it for creating Pydantic objects.

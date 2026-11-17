@@ -1,7 +1,5 @@
 """Pydantic model for filtering and retrieving course reviews from the Udemy API."""
 
-from typing import Optional
-
 from pydantic import BaseModel, field_validator
 
 from .._user import User
@@ -10,11 +8,11 @@ from .._user import User
 class ReviewFilter(BaseModel):
     """Pydantic model for filtering course reviews on the Udemy API."""
 
-    page: Optional[int] = 1
-    page_size: Optional[int] = 10
+    page: int | None = 1
+    page_size: int | None = 10
     is_text_review: bool = False
-    rating: Optional[int] = None
-    user: Optional[User] = None
+    rating: int | None = None
+    user: User | None = None
 
     @field_validator("rating")
     @classmethod

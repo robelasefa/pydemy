@@ -2,7 +2,7 @@
 
 __author__ = "mertigenet@gmail.com"
 __version__ = "0.3.0"
-__all__ = ["_exceptions", "models", "AsyncUdemyClient", "UdemyClient"]
+__all__ = ["AsyncUdemyClient", "UdemyClient", "_exceptions", "models"]
 
 
 from . import _exceptions, models

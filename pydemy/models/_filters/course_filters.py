@@ -1,9 +1,9 @@
 """Pydantic models and enums for filtering course search results on Udemy API."""
 
 from enum import Enum
-from typing import Optional, Self
+from typing import Self
 
-from pydantic import BaseModel, Field, ValidationError, field_validator, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from .._course_category import CourseCategory
 from .._course_subcategory import CourseSubcategory
@@ -56,23 +56,23 @@ _PRICE_ALIASES = {
 class CourseFilter(BaseModel):
     """Pydantic model for filtering course search results on the Udemy API."""
 
-    page: Optional[int] = 1
-    page_size: Optional[int] = 10
+    page: int | None = 1
+    page_size: int | None = 10
     search: str = ""
-    category: Optional[str] = None
-    subcategory: Optional[str] = None
-    price: Optional[Price] = None
+    category: str | None = None
+    subcategory: str | None = None
+    price: Price | None = None
     is_affiliate_agreed: bool = False
     is_fixed_priced_deals_agreed: bool = False
     is_percentage_deals_agreed: bool = False
-    language: Optional[str] = Field(default="en", pattern=r"^[a-z]{2}$")
+    language: str | None = Field(default="en", pattern=r"^[a-z]{2}$")
     has_closed_caption: bool = False
     has_coding_exercises: bool = False
     has_simple_quiz: bool = False
-    instructional_level: Optional[InstructionalLevel] = None
-    ordering: Optional[Ordering] = None
-    ratings: Optional[str] = None
-    duration: Optional[Duration] = None
+    instructional_level: InstructionalLevel | None = None
+    ordering: Ordering | None = None
+    ratings: str | None = None
+    duration: Duration | None = None
 
     @model_validator(mode="after")
     def validate_page_and_size(self) -> Self:

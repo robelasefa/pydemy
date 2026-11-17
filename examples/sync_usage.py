@@ -47,5 +47,5 @@ try:
     if course_details.image_480x270:
         print(f"\n\t- Image URL: {course_details.image_480x270}")
 
-except Exception as exc:
+except Exception as exc:  # noqa: BLE001
     print(f"Error retrieving course details: {exc}")

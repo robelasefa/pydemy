@@ -3,7 +3,7 @@ Pydantic model representing a Course Subcategory with a nested CourseCategory mo
 list of possible subcategories.
 """
 
-from typing import ClassVar, List, Optional
+from typing import ClassVar
 
 from pydantic import BaseModel, model_validator
 
@@ -13,10 +13,10 @@ from ._course_category import CourseCategory
 class CourseSubcategory(BaseModel):
     """Pydantic model for a Course Subcategory on the Udemy API."""
 
-    category: Optional[CourseCategory] = None
+    category: CourseCategory | None = None
     sort_order: int = 0
     title: str = ""
-    title_cleaned: Optional[str] = None
+    title_cleaned: str | None = None
 
     @model_validator(mode="after")
     def _generate_title_cleaned(self):
@@ -27,7 +27,7 @@ class CourseSubcategory(BaseModel):
         return self
 
     # Define a list of possible subcategories
-    POSSIBLE_SUBCATEGORIES: ClassVar[List[str]] = [
+    POSSIBLE_SUBCATEGORIES: ClassVar[list[str]] = [
         "3D & Animation",
         "Accounting & Bookkeeping",
         "Affiliate Marketing",

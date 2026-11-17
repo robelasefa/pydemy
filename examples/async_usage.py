@@ -46,7 +46,7 @@ async def main():
                     print("\n\t- Duration: {entry.duration} seconds")
                     print("\n\t- Pass Percentage: {entry.pass_percent:.2f}")
 
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             print(f"Error retrieving course curriculum: {exc}")
 
         # Example 3: Get course details with image download (async)
@@ -74,14 +74,14 @@ async def main():
                         # Create directory if it doesn't exist
                         os.makedirs(os.path.dirname(image_path), exist_ok=True)
 
-                        with open(image_path, "wb") as f:
+                        with open(image_path, "wb") as f:  # noqa: ASYNC230
                             f.write(await response.read())
                         print(f"Image downloaded and saved as: {image_path}")
                     else:
                         print(f"Error downloading image: {response.status_code}")
             else:
                 print("\n- No image URL available for this course")
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             print(f"Error retrieving course details: {exc}")
 
 

@@ -1,6 +1,6 @@
 """Pydantic model representing a Course Category with a static list of possible categories."""
 
-from typing import ClassVar, List
+from typing import ClassVar
 
 from pydantic import BaseModel
 
@@ -13,7 +13,7 @@ class CourseCategory(BaseModel):
     title_cleaned: str = ""
 
     # Define a list of possible categories
-    POSSIBLE_CATEGORIES: ClassVar[List[str]] = [
+    POSSIBLE_CATEGORIES: ClassVar[list[str]] = [
         "Business",
         "Design",
         "Development",

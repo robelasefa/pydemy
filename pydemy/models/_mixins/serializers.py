@@ -1,7 +1,7 @@
 """Mixins for model serialization."""
 
 from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 
 from pydantic import BaseModel, model_serializer
 
@@ -10,7 +10,7 @@ class DateTimeSerializer(BaseModel):
     """Mixin class for serializing datetime fields to ISO 8601 format."""
 
     @model_serializer()
-    def serialize_datetimes(self) -> Dict[str, Any]:
+    def serialize_datetimes(self) -> dict[str, Any]:
         """
         Serializes the model to a dictionary.
 
@@ -23,8 +23,7 @@ class DateTimeSerializer(BaseModel):
                 return value.isoformat()
             if isinstance(value, BaseModel):
                 return {
-                    name: _serialize(getattr(value, name))
-                    for name in type(value).model_fields
+                    name: _serialize(getattr(value, name)) for name in type(value).model_fields
                 }
             if isinstance(value, list):
                 return [_serialize(item) for item in value]

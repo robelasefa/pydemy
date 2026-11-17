@@ -6,9 +6,20 @@ import pytest
 from pydantic import ValidationError
 
 from pydemy.models import (
-    Course, CourseReview, CourseFilter, ReviewFilter,
-    Instructor, Locale, PriceDetail, Chapter, Lecture,
-    Asset, Quiz, User, Price, CourseSubcategory
+    Asset,
+    Chapter,
+    Course,
+    CourseFilter,
+    CourseReview,
+    CourseSubcategory,
+    Instructor,
+    Lecture,
+    Locale,
+    Price,
+    PriceDetail,
+    Quiz,
+    ReviewFilter,
+    User,
 )
 
 
@@ -29,11 +40,7 @@ class TestCourseFilter:
     def test_course_filter_with_multiple_fields(self):
         """Test CourseFilter with multiple fields."""
         filter_obj = CourseFilter(
-            search="python",
-            page=2,
-            page_size=20,
-            category="Development",
-            price="paid"
+            search="python", page=2, page_size=20, category="Development", price="paid"
         )
         data = filter_obj.model_dump(exclude_unset=True)
         assert data["search"] == "python"
@@ -70,11 +77,7 @@ class TestCourse:
 
     def test_course_creation_minimal(self):
         """Test Course creation with minimal data."""
-        course_data = {
-            "_class": "course",
-            "id": 12345,
-            "title": "Test Course"
-        }
+        course_data = {"_class": "course", "id": 12345, "title": "Test Course"}
         course = Course(**course_data)
         assert course.id == 12345
         assert course.title == "Test Course"
@@ -88,24 +91,17 @@ class TestCourse:
             "url": "https://www.udemy.com/test-python-course/",
             "is_paid": True,
             "price": "19.99",
-            "price_detail": {
-                "_class": "price_detail",
-                "amount": 1999,
-                "currency": "USD"
-            },
+            "price_detail": {"_class": "price_detail", "amount": 1999, "currency": "USD"},
             "visible_instructors": [
                 {
                     "_class": "instructor",
                     "id": 678,
                     "title": "Test Instructor",
-                    "display_name": "John Doe"
+                    "display_name": "John Doe",
                 }
             ],
             "image_480x270": "https://example.com/image.jpg",
-            "locale": {
-                "_class": "locale",
-                "locale": "en_US"
-            }
+            "locale": {"_class": "locale", "locale": "en_US"},
         }
         course = Course(**course_data)
         assert course.id == 12345
@@ -123,10 +119,7 @@ class TestCourse:
 
     def test_course_without_class_field(self):
         """Test Course creation without _class field."""
-        course_data = {
-            "id": 12345,
-            "title": "Test Course"
-        }
+        course_data = {"id": 12345, "title": "Test Course"}
         course = Course(**course_data)
         assert course.id == 12345
         assert course.title == "Test Course"
@@ -137,11 +130,7 @@ class TestInstructor:
 
     def test_instructor_creation_minimal(self):
         """Test Instructor creation with minimal data."""
-        instructor_data = {
-            "_class": "instructor",
-            "id": 678,
-            "display_name": "John Doe"
-        }
+        instructor_data = {"_class": "instructor", "id": 678, "display_name": "John Doe"}
         instructor = Instructor(**instructor_data)
         assert instructor.id == 678
         assert instructor.display_name == "John Doe"
@@ -154,7 +143,7 @@ class TestInstructor:
             "title": "Test Instructor",
             "display_name": "John Doe",
             "job_title": "Python Developer",
-            "url": "https://example.com/instructor"
+            "url": "https://example.com/instructor",
         }
         instructor = Instructor(**instructor_data)
         assert instructor.id == 678
@@ -169,21 +158,14 @@ class TestPriceDetail:
 
     def test_price_detail_creation(self):
         """Test PriceDetail creation."""
-        price_data = {
-            "_class": "price_detail",
-            "amount": 1999,
-            "currency": "USD"
-        }
+        price_data = {"_class": "price_detail", "amount": 1999, "currency": "USD"}
         price = PriceDetail(**price_data)
         assert price.amount == 1999
         assert price.currency == "USD"
 
     def test_price_detail_without_class(self):
         """Test PriceDetail creation without _class."""
-        price_data = {
-            "amount": 1999,
-            "currency": "USD"
-        }
+        price_data = {"amount": 1999, "currency": "USD"}
         price = PriceDetail(**price_data)
         assert price.amount == 1999
         assert price.currency == "USD"
@@ -194,18 +176,13 @@ class TestLocale:
 
     def test_locale_creation(self):
         """Test Locale creation."""
-        locale_data = {
-            "_class": "locale",
-            "locale": "en_US"
-        }
+        locale_data = {"_class": "locale", "locale": "en_US"}
         locale = Locale(**locale_data)
         assert locale.locale == "en_US"
 
     def test_locale_without_class(self):
         """Test Locale creation without _class."""
-        locale_data = {
-            "locale": "en_US"
-        }
+        locale_data = {"locale": "en_US"}
         locale = Locale(**locale_data)
         assert locale.locale == "en_US"
 
@@ -219,7 +196,7 @@ class TestCourseReview:
             "_class": "course_review",
             "id": 987,
             "content": "Great course!",
-            "rating": 5
+            "rating": 5,
         }
         review = CourseReview(**review_data)
         assert review.id == 987
@@ -233,11 +210,7 @@ class TestCourseReview:
             "id": 987,
             "content": "Great course!",
             "rating": 5,
-            "user": {
-                "_class": "user",
-                "id": 456,
-                "display_name": "Jane Smith"
-            }
+            "user": {"_class": "user", "id": 456, "display_name": "Jane Smith"},
         }
         review = CourseReview(**review_data)
         assert review.id == 987
@@ -252,21 +225,14 @@ class TestUser:
 
     def test_user_creation_minimal(self):
         """Test User creation with minimal data."""
-        user_data = {
-            "_class": "user",
-            "id": 456,
-            "display_name": "Jane Smith"
-        }
+        user_data = {"_class": "user", "id": 456, "display_name": "Jane Smith"}
         user = User(**user_data)
         assert user.id == 456
         assert user.display_name == "Jane Smith"
 
     def test_user_without_class(self):
         """Test User creation without _class."""
-        user_data = {
-            "id": 456,
-            "display_name": "Jane Smith"
-        }
+        user_data = {"id": 456, "display_name": "Jane Smith"}
         user = User(**user_data)
         assert user.id == 456
         assert user.display_name == "Jane Smith"
@@ -281,7 +247,7 @@ class TestChapter:
             "_class": "chapter",
             "id": 1,
             "title": "Introduction",
-            "description": "Course introduction"
+            "description": "Course introduction",
         }
         chapter = Chapter(**chapter_data)
         assert chapter.id == 1
@@ -290,10 +256,7 @@ class TestChapter:
 
     def test_chapter_without_class(self):
         """Test Chapter creation without _class."""
-        chapter_data = {
-            "id": 1,
-            "title": "Introduction"
-        }
+        chapter_data = {"id": 1, "title": "Introduction"}
         chapter = Chapter(**chapter_data)
         assert chapter.id == 1
         assert chapter.title == "Introduction"
@@ -304,11 +267,7 @@ class TestLecture:
 
     def test_lecture_creation_minimal(self):
         """Test Lecture creation with minimal data."""
-        lecture_data = {
-            "_class": "lecture",
-            "id": 2,
-            "title": "Getting Started"
-        }
+        lecture_data = {"_class": "lecture", "id": 2, "title": "Getting Started"}
         lecture = Lecture(**lecture_data)
         assert lecture.id == 2
         assert lecture.title == "Getting Started"
@@ -319,11 +278,7 @@ class TestLecture:
             "_class": "lecture",
             "id": 2,
             "title": "Getting Started",
-            "asset": {
-                "_class": "asset",
-                "id": 123,
-                "title": "Introduction Video"
-            }
+            "asset": {"_class": "asset", "id": 123, "title": "Introduction Video"},
         }
         lecture = Lecture(**lecture_data)
         assert lecture.id == 2
@@ -338,21 +293,14 @@ class TestAsset:
 
     def test_asset_creation(self):
         """Test Asset creation."""
-        asset_data = {
-            "_class": "asset",
-            "id": 123,
-            "title": "Introduction Video"
-        }
+        asset_data = {"_class": "asset", "id": 123, "title": "Introduction Video"}
         asset = Asset(**asset_data)
         assert asset.id == 123
         assert asset.title == "Introduction Video"
 
     def test_asset_without_class(self):
         """Test Asset creation without _class."""
-        asset_data = {
-            "id": 123,
-            "title": "Introduction Video"
-        }
+        asset_data = {"id": 123, "title": "Introduction Video"}
         asset = Asset(**asset_data)
         assert asset.id == 123
         assert asset.title == "Introduction Video"
@@ -368,7 +316,7 @@ class TestQuiz:
             "id": 3,
             "title": "Knowledge Check",
             "duration": 300,
-            "pass_percent": 80.0
+            "pass_percent": 80.0,
         }
         quiz = Quiz(**quiz_data)
         assert quiz.id == 3
@@ -378,10 +326,7 @@ class TestQuiz:
 
     def test_quiz_without_class(self):
         """Test Quiz creation without _class."""
-        quiz_data = {
-            "id": 3,
-            "title": "Knowledge Check"
-        }
+        quiz_data = {"id": 3, "title": "Knowledge Check"}
         quiz = Quiz(**quiz_data)
         assert quiz.id == 3
         assert quiz.title == "Knowledge Check"

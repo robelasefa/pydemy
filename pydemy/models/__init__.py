@@ -1,29 +1,24 @@
 """Pydantic models for API interactions."""
 
 __all__ = [
-    # Course-related models
+    "Asset",
+    "Chapter",
     "Course",
     "CourseCategory",
-    "CourseSubcategory",
+    "CourseFilter",
     "CourseReview",
-    "CourseFilter",  # Filter for courses
-    "ReviewFilter",  # Filter for reviews
-    "Instructor",
-    "Locale",
-    "PriceDetail",
-    # Chapter and Lecture models
-    "Chapter",
-    "Asset",
-    "Lecture",
-    # Quiz model
-    "Quiz",
-    # User model
-    "User",
-    # Additional filter classes
-    "Price",
-    "InstructionalLevel",
-    "Ordering",
+    "CourseSubcategory",
     "Duration",
+    "InstructionalLevel",
+    "Instructor",
+    "Lecture",
+    "Locale",
+    "Ordering",
+    "Price",
+    "PriceDetail",
+    "Quiz",
+    "ReviewFilter",
+    "User",
 ]
 
 from ._chapter import Chapter

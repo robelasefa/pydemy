@@ -1,7 +1,6 @@
 """Pydantic model representing a Quiz object as inferred from the Udemy API response."""
 
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -15,11 +14,11 @@ class Quiz(BaseModel):
     """
 
     id: int
-    title: Optional[str] = None
-    type: Optional[str] = None
-    created: Optional[datetime] = None
-    description: Optional[str] = None
-    title_cleaned: Optional[str] = None
+    title: str | None = None
+    type: str | None = None
+    created: datetime | None = None
+    description: str | None = None
+    title_cleaned: str | None = None
     is_published: bool = False
     sort_order: int = 0
     object_index: int = 0

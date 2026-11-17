@@ -3,7 +3,7 @@ Pydantic model representing a Udemy Course object with nested models for price d
 instructors, and locale.
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 from pydantic import BaseModel
 
@@ -22,20 +22,20 @@ class PriceDetail(BaseModel):
 class Instructor(User):
     """Pydantic model for a course instructor inheriting from User."""
 
-    job_title: Optional[str] = None
-    image_50x50: Optional[str] = None
-    image_100x100: Optional[str] = None
-    initials: Optional[str] = None
-    url: Optional[str] = None
+    job_title: str | None = None
+    image_50x50: str | None = None
+    image_100x100: str | None = None
+    initials: str | None = None
+    url: str | None = None
 
 
 class Locale(BaseModel):
     """Pydantic model for a course's locale information."""
 
     locale: str = ""
-    title: Optional[str] = None
-    english_title: Optional[str] = None
-    simple_english_title: Optional[str] = None
+    title: str | None = None
+    english_title: str | None = None
+    simple_english_title: str | None = None
 
 
 class Course(BaseModel):
@@ -43,25 +43,25 @@ class Course(BaseModel):
 
     id: int
     title: str
-    url: Optional[str] = None
+    url: str | None = None
     is_paid: bool = False
-    price: Optional[str] = None
-    price_detail: Optional[PriceDetail] = None
-    price_serve_tracking_id: Optional[str] = None
-    visible_instructors: List[Instructor] = []
-    image_125_H: Optional[str] = None
-    image_240x135: Optional[str] = None
+    price: str | None = None
+    price_detail: PriceDetail | None = None
+    price_serve_tracking_id: str | None = None
+    visible_instructors: list[Instructor] = []
+    image_125_H: str | None = None
+    image_240x135: str | None = None
     is_practice_test_course: bool = False
-    image_480x270: Optional[str] = None
-    published_title: Optional[str] = None
+    image_480x270: str | None = None
+    published_title: str | None = None
     tracking_id: str = ""
-    locale: Optional[Locale] = None
-    predictive_score: Optional[float] = None
-    relevancy_score: Optional[float] = None
-    input_features: Optional[Dict[str, Any]] = None
-    lecture_search_result: Optional[Dict[str, Any]] = None
-    curriculum_lectures: Optional[List[Dict[str, Any]]] = []
-    order_in_results: Optional[int] = None
-    curriculum_items: Optional[List[Dict[str, Any]]] = []
-    headline: Optional[str] = None
-    instructor_name: Optional[str] = None
+    locale: Locale | None = None
+    predictive_score: float | None = None
+    relevancy_score: float | None = None
+    input_features: dict[str, Any] | None = None
+    lecture_search_result: dict[str, Any] | None = None
+    curriculum_lectures: list[dict[str, Any]] | None = []
+    order_in_results: int | None = None
+    curriculum_items: list[dict[str, Any]] | None = []
+    headline: str | None = None
+    instructor_name: str | None = None
